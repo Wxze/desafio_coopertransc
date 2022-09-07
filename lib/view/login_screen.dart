@@ -24,11 +24,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 width: MediaQuery.of(context).size.width,
                 height: 0.35*(MediaQuery.of(context).size.height),
                 decoration: const BoxDecoration(
-                  color: Color(0x33C3C3C3),
                   image: DecorationImage(
                     image: AssetImage('images/login_background.jpg'),
                     fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(Color(0x77C3C3C3), BlendMode.dstATop),
+                    opacity: 0.5,
                   )
                 ),
                 child: const Image(
