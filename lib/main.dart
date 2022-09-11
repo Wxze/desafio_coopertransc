@@ -1,8 +1,7 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 
 import 'view/login_screen.dart';
+import 'view/turn_screen.dart';
 
 void main() {
   runApp(
@@ -10,14 +9,15 @@ void main() {
       debugShowCheckedModeBanner: false,
       title: 'Coopertransc',
       theme: ThemeData(
-        scaffoldBackgroundColor: Color(0xFFE8EEEE),
-        appBarTheme: AppBarTheme(
-          backgroundColor: Color(0xFF316762),
+        scaffoldBackgroundColor: const Color(0xFFF1F5F5),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFF1A5650),
         ),
       ),
       initialRoute: '/login',
       routes: {
-        '/login': (context) => LoginScreen(),
+        '/login': (context) => const LoginScreen(),
+        '/turn' :(context) => const TurnScreen(),
       },
     ),
   );

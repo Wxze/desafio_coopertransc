@@ -72,6 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             Icons.person,
                             color: Color(0xFF000D0C),
                           ),
+                          checkPwField(false)
                         ),
                         formattedTextField(
                           txtPassword,
@@ -80,9 +81,23 @@ class _LoginScreenState extends State<LoginScreen> {
                             Icons.key,
                             color: Color(0xFF000D0C),
                           ),
+                          checkPwField(true)
                         ),
                         formattedButton('Entrar')
                       ],
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(0, 38, 0, 0),
+                    child: const Text(
+                      'Visite nosso site',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Color(0xFF002825),
+                        decoration: TextDecoration.underline
+                      ),
                     ),
                   ),
                 ],
@@ -94,14 +109,21 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  formattedTextField(controllerVar, label, icon) {
+  formattedTextField(controllerVar, label, icon, bool isPwField) {
     return Container(
       margin: const EdgeInsets.fromLTRB(0, 50, 0, 0),
       child: TextFormField(
         controller: controllerVar,
+        obscureText: isPwField,
+        enableSuggestions: false,
+        autocorrect: false,
+        style: const TextStyle(
+          fontSize: 15,
+        ),
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
+          isDense: true,
           labelText: label,
           labelStyle: const TextStyle(fontSize: 20, color: Color(0xFF000D0C)),
           hintText: 'Informe o valor',
@@ -109,7 +131,10 @@ class _LoginScreenState extends State<LoginScreen> {
             fontSize: 15,
             color: Color(0x771A5650),
           ),
-          prefixIcon: icon,
+          prefixIcon: Padding(
+            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+            child: icon,
+          ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(25.0),
             borderSide: const BorderSide(
@@ -134,16 +159,21 @@ class _LoginScreenState extends State<LoginScreen> {
       margin: const EdgeInsets.fromLTRB(0, 55, 0, 0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          minimumSize: Size(180, 55),
-          primary: Color(0xFF1A5650),
+          minimumSize: const Size(180, 55),
+          primary: const Color(0xFF1A5650),
           shadowColor: Colors.black,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25),
           ),
         ),
-        onPressed: () {},
-        child: Text(msg, style: TextStyle(fontSize: 18),),
+        child: Text(msg, style: const TextStyle(fontSize: 18),),
+        onPressed: () {Navigator.pushNamed(context, '/turn');},
       ),
     );
   }
+
+bool checkPwField(bool isPw){
+  return isPw;
+}
+
 }
