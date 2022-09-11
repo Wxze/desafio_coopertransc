@@ -129,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
           hintText: 'Informe o valor',
           hintStyle: const TextStyle(
             fontSize: 15,
-            color: Color(0x771A5650),
+            color: Color(0x77103430),
           ),
           prefixIcon: Padding(
             padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
@@ -145,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(25.0),
             borderSide: const BorderSide(
-              color: Color(0xFF1A5650),
+              color: Color(0xFF103430),
               width: 1.7,
             ),
           ),
