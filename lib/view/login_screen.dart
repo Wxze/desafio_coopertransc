@@ -49,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    margin: const EdgeInsets.fromLTRB(0, 0, 0, 15),
+                    margin: const EdgeInsets.fromLTRB(15, 15, 15, 15),
                     alignment: Alignment.centerLeft,
                     child: const Text(
                       'Seja bem vindo!',
@@ -88,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.fromLTRB(0, 38, 0, 0),
+                    margin: const EdgeInsets.fromLTRB(0, 38, 0, 30),
                     child: const Text(
                       'Visite nosso site',
                       textAlign: TextAlign.left,
@@ -117,6 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
         obscureText: isPwField,
         enableSuggestions: false,
         autocorrect: false,
+        
         style: const TextStyle(
           fontSize: 15,
         ),
@@ -124,8 +125,9 @@ class _LoginScreenState extends State<LoginScreen> {
           filled: true,
           fillColor: Colors.white,
           isDense: true,
+          contentPadding: const EdgeInsets.all(20),
           labelText: label,
-          labelStyle: const TextStyle(fontSize: 20, color: Color(0xFF000D0C)),
+          labelStyle: const TextStyle(fontSize: 16, color: Color(0xFF000D0C)),
           hintText: 'Informe o valor',
           hintStyle: const TextStyle(
             fontSize: 15,
@@ -138,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(25.0),
             borderSide: const BorderSide(
-              color: Color(0x99F8D14F),
+              color: Color(0xFF487873),
               width: 2.4,
             ),
           ),
