@@ -37,36 +37,39 @@ class _TurnScreenState extends State<TurnScreen> {
         padding: EdgeInsets.all(16),
         child: _screens[_currentIndex],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _currentIndex,
-        selectedItemColor: const Color(0xE5F8D14F),
-        iconSize: 24,
-        backgroundColor: const Color(0xFF316762),
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.local_shipping),
-            label: 'Vez',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.group),
-            label: 'Viagens'
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Minhas viagens'
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.warning),
-            label: 'Avisos'
-          ),
-        ],
-        onTap: (int index) {
-          setState(() {
-            _currentIndex = index;
-            changeAppBarTitle();
-          });
-        },
+      bottomNavigationBar: ClipRRect(
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
+        child: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          currentIndex: _currentIndex,
+          selectedItemColor: const Color(0xE5F8D14F),
+          iconSize: 24,
+          backgroundColor: const Color(0xFF316762),
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.local_shipping),
+              label: 'Vez',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.group),
+              label: 'Viagens'
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Minhas viagens'
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.warning),
+              label: 'Avisos'
+            ),
+          ],
+          onTap: (int index) {
+            setState(() {
+              _currentIndex = index;
+              changeAppBarTitle();
+            });
+          },
+        ),
       ),
     );
   }
