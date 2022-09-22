@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'view/login_screen.dart';
-import 'view/turn_screen.dart';
+import 'view/login_view.dart';
+import 'view/home_view.dart';
 
 void main() {
   runApp(
@@ -16,8 +15,8 @@ void main() {
       ),
       initialRoute: '/login',
       routes: {
-        '/login': (context) => const LoginScreen(),
-        '/turn' :(context) => const TurnScreen(),
+        '/login': (context) => const LoginView(),
+        '/turn' :(context) => const HomeView(),
       },
     ),
   );
