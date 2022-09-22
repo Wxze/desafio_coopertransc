@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class LoginView extends StatefulWidget {
+  const LoginView({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<LoginView> createState() => _LoginViewState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginViewState extends State<LoginView> {
   var txtCpf = TextEditingController();
   var txtPassword = TextEditingController();
 
@@ -71,6 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           const Icon(
                             Icons.person,
                             color: Color(0xFF000D0C),
+                            size: 24,
                           ),
                           checkPwField(false)
                         ),
@@ -80,10 +81,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           const Icon(
                             Icons.key,
                             color: Color(0xFF000D0C),
+                            size: 24
                           ),
                           checkPwField(true)
                         ),
-                        formattedButton('Entrar')
+                        formattedButton('Fazer Login')
                       ],
                     ),
                   ),
@@ -138,14 +140,14 @@ class _LoginScreenState extends State<LoginScreen> {
             child: icon,
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25.0),
+            borderRadius: BorderRadius.circular(25),
             borderSide: const BorderSide(
               color: Color(0xFF487873),
               width: 2.4,
             ),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25.0),
+            borderRadius: BorderRadius.circular(25),
             borderSide: const BorderSide(
               color: Color(0xFF103430),
               width: 1.7,
@@ -161,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
       margin: const EdgeInsets.fromLTRB(0, 55, 0, 0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          minimumSize: const Size(180, 55),
+          minimumSize: const Size.fromHeight(55),
           primary: const Color(0xFF1A5650),
           shadowColor: Colors.black,
           shape: RoundedRectangleBorder(

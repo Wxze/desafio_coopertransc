@@ -10,18 +10,17 @@ class TurnView extends StatefulWidget {
 class _TurnViewState extends State<TurnView> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView.builder(
-        itemCount: 15,
-        itemBuilder: (context, index) {
-          return turnListTile();
-        },
-      ),
+    return ListView.builder(
+      itemCount: 15,
+      itemBuilder: (context, index) {
+        return turnListTile();
+      },
     );
   }
 
   Widget turnListTile() {
     return Card(
+      margin: const EdgeInsets.symmetric(vertical: 6),
       elevation: 1,
       child: ListTile(
         leading: const Icon(Icons.woman),
@@ -29,7 +28,7 @@ class _TurnViewState extends State<TurnView> {
         title: const Text('Título'),
         subtitle: const Text('Subtítulo'),
         hoverColor: const Color(0xFFd9dddd),
-        onTap: () => {} ,
+        onTap: () => {},
       ),
     );
   }
