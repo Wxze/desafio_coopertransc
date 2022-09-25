@@ -30,12 +30,12 @@ class _LoginViewState extends State<LoginView> {
                 height: 0.32875 * (MediaQuery.of(context).size.height),
                 decoration: const BoxDecoration(
                     image: DecorationImage(
-                  image: AssetImage('images/login_background.jpg'),
+                  image: AssetImage('assets/images/login_background.jpg'),
                   fit: BoxFit.cover,
                   opacity: 0.6,
                 )),
                 child: const Image(
-                  image: AssetImage('images/logo_coopertransc.png'),
+                  image: AssetImage('assets/images/logo_coopertransc.png'),
                 ),
               ),
             ),
@@ -49,7 +49,6 @@ class _LoginViewState extends State<LoginView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    margin: const EdgeInsets.fromLTRB(15, 15, 15, 15),
                     alignment: Alignment.centerLeft,
                     child: const Text(
                       'Seja bem vindo!',
@@ -90,7 +89,7 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.fromLTRB(0, 38, 0, 30),
+                    margin: const EdgeInsets.symmetric(vertical: 30),
                     child: const Text(
                       'Visite nosso site',
                       textAlign: TextAlign.left,
@@ -113,7 +112,7 @@ class _LoginViewState extends State<LoginView> {
 
   formattedTextField(controllerVar, label, icon, bool isPwField) {
     return Container(
-      margin: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+      margin: const EdgeInsets.only(top: 40),
       child: TextFormField(
         controller: controllerVar,
         obscureText: isPwField,
@@ -160,7 +159,7 @@ class _LoginViewState extends State<LoginView> {
 
   formattedButton(msg) {
     return Container(
-      margin: const EdgeInsets.fromLTRB(0, 55, 0, 0),
+      margin: const EdgeInsets.only(top: 40),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           minimumSize: const Size.fromHeight(55),
