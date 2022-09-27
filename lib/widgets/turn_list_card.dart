@@ -1,3 +1,4 @@
+import 'package:desafio_coopertransc/models/turn.dart';
 import 'package:flutter/material.dart';
 
 class _DateTimeSection extends StatelessWidget {
@@ -152,7 +153,8 @@ class _ContentSection extends StatelessWidget {
 }
 
 class TurnListCard extends StatelessWidget {
-  const TurnListCard({Key? key}) : super(key: key);
+  final Turn turnData;
+  const TurnListCard(this.turnData, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -169,28 +171,27 @@ class TurnListCard extends StatelessWidget {
             decoration: BoxDecoration(
               border: Border(
                   left: BorderSide(
-                      color: getCardColor("Bitrem".toLowerCase()), width: 5)),
+                      color: getCardColor(turnData.truckType.toLowerCase()), width: 5)),
               color: Colors.white,
             ),
             child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Flexible(
-                      child: _DateTimeSection(
-                    truck: "Bitrem",
-                    date: '31/02/2022',
-                    time: '01:00',
-                    arrivalTime: '27/09',
+                    child: _DateTimeSection(
+                    truck: turnData.truckType,
+                    date: turnData.date,
+                    time: turnData.time,
+                    arrivalTime: turnData.arrivalTime,
                   )),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   Flexible(
                       flex: 3,
                       child: _ContentSection(
-                        position: '002',
-                        name: 'Gabriel Toledo',
-                        vehicle:
-                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel diam sed enim laoreet lacinia. ',
-                        headquarter: 'SP, RJ, MG, ES, AM, CE, PE, GO',
+                        position: turnData.position,
+                        name: turnData.name,
+                        vehicle: turnData.vehicle,
+                        headquarter: turnData.headquarter
                       ))
                 ])),
       ),
