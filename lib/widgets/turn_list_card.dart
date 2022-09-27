@@ -16,8 +16,7 @@ class _DateTimeSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return 
-      Column(
+    return Column(
       children: [
         Column(children: [
           CircleAvatar(
@@ -43,8 +42,7 @@ class _DateTimeSection extends StatelessWidget {
               )),
         ]),
         const SizedBox(height: 10),
-        Column(
-          children: [
+        Column(children: [
           const Text("Data chegada",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -108,7 +106,7 @@ class _ContentSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         margin: const EdgeInsets.only(left: 16),
-            child: Column(
+        child: Column(
           children: [
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -171,8 +169,7 @@ class TurnListCard extends StatelessWidget {
             decoration: BoxDecoration(
               border: Border(
                   left: BorderSide(
-                      color: getCardColor("Bitrem".toLowerCase()),
-                      width: 5)),
+                      color: getCardColor("Bitrem".toLowerCase()), width: 5)),
               color: Colors.white,
             ),
             child: Row(
@@ -180,11 +177,12 @@ class TurnListCard extends StatelessWidget {
                 children: const [
                   Flexible(
                       child: _DateTimeSection(
-                        truck: "Bitrem",
-                        date: '31/02/2022',
-                        time: '01:00',
-                        arrivalTime: '27/09',
-                      )),
+                    truck: "Bitrem",
+                    date: '31/02/2022',
+                    time: '01:00',
+                    arrivalTime: '27/09',
+                  )),
+                  SizedBox(width: 8),
                   Flexible(
                       flex: 3,
                       child: _ContentSection(
@@ -201,14 +199,14 @@ class TurnListCard extends StatelessWidget {
 }
 
 Color getCardColor(String truckType) {
-    switch(truckType) {
-      case 'truck':
-        return const Color(0xFF1FE059).withOpacity(0.75);
-      case 'bitrem':
-        return const Color(0xFF591FE0).withOpacity(0.75);
-      case 'carreta':
-        return const Color(0xFFE0591F).withOpacity(0.75);
-      default: 
-        return const Color(0xFF1FE059).withOpacity(0.75);
-    }
+  switch (truckType) {
+    case 'truck':
+      return const Color(0xFF1FE059).withOpacity(0.75);
+    case 'bitrem':
+      return const Color(0xFF591FE0).withOpacity(0.75);
+    case 'carreta':
+      return const Color(0xFFE0591F).withOpacity(0.75);
+    default:
+      return const Color(0xFF1FE059).withOpacity(0.75);
   }
+}
