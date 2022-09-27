@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:desafio_coopertransc/widgets/turn_list_card.dart';
 
 class TurnView extends StatefulWidget {
   const TurnView({Key? key}) : super(key: key);
@@ -19,17 +20,6 @@ class _TurnViewState extends State<TurnView> {
   }
 
   Widget turnListTile() {
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 6),
-      elevation: 1,
-      child: ListTile(
-        leading: const Icon(Icons.woman),
-        trailing: const Icon(Icons.arrow_drop_down_circle),
-        title: const Text('Título'),
-        subtitle: const Text('Subtítulo'),
-        hoverColor: const Color(0xFFd9dddd),
-        onTap: () => {},
-      ),
-    );
+    return const TurnListCard();
   }
 }

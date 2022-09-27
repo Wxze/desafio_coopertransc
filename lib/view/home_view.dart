@@ -1,9 +1,5 @@
 // ignore_for_file: prefer_const_constructors
-
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-
 import 'my_trip_view.dart';
 import 'trip_view.dart';
 import 'turn_view.dart';

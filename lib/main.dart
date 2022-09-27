@@ -4,7 +4,7 @@ import 'view/home_view.dart';
 
 void main() {
   runApp(
-    MaterialApp(
+    MaterialApp(  
       debugShowCheckedModeBanner: false,
       title: 'Coopertransc',
       theme: ThemeData(
