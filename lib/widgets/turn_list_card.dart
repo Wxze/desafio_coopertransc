@@ -1,3 +1,4 @@
+import 'package:desafio_coopertransc/models/turn.dart';
 import 'package:flutter/material.dart';
 
 class _DateTimeSection extends StatelessWidget {
@@ -16,11 +17,11 @@ class _DateTimeSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return 
-      Column(
+    return Column(
       children: [
         Column(children: [
           CircleAvatar(
+            radius: 25,
             backgroundColor: Colors.grey.shade500,
           ),
           Text(truck,
@@ -42,8 +43,7 @@ class _DateTimeSection extends StatelessWidget {
               )),
         ]),
         const SizedBox(height: 10),
-        Column(
-          children: [
+        Column(children: [
           const Text("Data chegada",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -107,7 +107,7 @@ class _ContentSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         margin: const EdgeInsets.only(left: 16),
-            child: Column(
+        child: Column(
           children: [
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -153,7 +153,8 @@ class _ContentSection extends StatelessWidget {
 }
 
 class TurnListCard extends StatelessWidget {
-  const TurnListCard({Key? key}) : super(key: key);
+  final Turn turnData;
+  const TurnListCard(this.turnData, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -170,28 +171,27 @@ class TurnListCard extends StatelessWidget {
             decoration: BoxDecoration(
               border: Border(
                   left: BorderSide(
-                      color: getCardColor("Bitrem".toLowerCase()),
-                      width: 5)),
+                      color: getCardColor(turnData.truckType.toLowerCase()), width: 5)),
               color: Colors.white,
             ),
             child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Flexible(
-                      child: _DateTimeSection(
-                        truck: "Bitrem",
-                        date: '31/02/2022',
-                        time: '01:00',
-                        arrivalTime: '27/09',
-                      )),
+                    child: _DateTimeSection(
+                    truck: turnData.truckType,
+                    date: turnData.date,
+                    time: turnData.time,
+                    arrivalTime: turnData.arrivalTime,
+                  )),
+                  const SizedBox(width: 8),
                   Flexible(
                       flex: 3,
                       child: _ContentSection(
-                        position: '002',
-                        name: 'Gabriel Toledo',
-                        vehicle:
-                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel diam sed enim laoreet lacinia. ',
-                        headquarter: 'SP, RJ, MG, ES, AM, CE, PE, GO',
+                        position: turnData.position,
+                        name: turnData.name,
+                        vehicle: turnData.vehicle,
+                        headquarter: turnData.headquarter
                       ))
                 ])),
       ),
@@ -200,14 +200,14 @@ class TurnListCard extends StatelessWidget {
 }
 
 Color getCardColor(String truckType) {
-    switch(truckType) {
-      case 'truck':
-        return const Color(0xFF1FE059).withOpacity(0.75);
-      case 'bitrem':
-        return const Color(0xFF591FE0).withOpacity(0.75);
-      case 'carreta':
-        return const Color(0xFFE0591F).withOpacity(0.75);
-      default: 
-        return const Color(0xFF1FE059).withOpacity(0.75);
-    }
+  switch (truckType) {
+    case 'truck':
+      return const Color(0xFF1FE059).withOpacity(0.75);
+    case 'bitrem':
+      return const Color(0xFF591FE0).withOpacity(0.75);
+    case 'carreta':
+      return const Color(0xFFE0591F).withOpacity(0.75);
+    default:
+      return const Color(0xFF1FE059).withOpacity(0.75);
   }
+}
