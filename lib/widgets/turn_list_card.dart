@@ -21,6 +21,7 @@ class _DateTimeSection extends StatelessWidget {
       children: [
         Column(children: [
           CircleAvatar(
+            radius: 25,
             backgroundColor: Colors.grey.shade500,
           ),
           Text(truck,
