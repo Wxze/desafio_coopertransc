@@ -1,6 +1,8 @@
 import 'package:desafio_coopertransc/models/turn.dart';
 import 'package:flutter/material.dart';
 
+import 'card_field.dart';
+
 class _DateTimeSection extends StatelessWidget {
   final String truck;
   final String date;
@@ -21,7 +23,7 @@ class _DateTimeSection extends StatelessWidget {
       children: [
         Column(children: [
           CircleAvatar(
-            radius: 25,
+            radius: 30,
             backgroundColor: Colors.grey.shade500,
           ),
           Text(truck,
@@ -61,33 +63,6 @@ class _DateTimeSection extends StatelessWidget {
   }
 }
 
-class _CardField extends StatelessWidget {
-  final String label;
-  final String value;
-
-  const _CardField({
-    Key? key,
-    required this.label,
-    required this.value,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(label,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            )),
-        Text(value,
-            style: const TextStyle(
-              color: Color(0xFF000D0C),
-            ))
-      ],
-    );
-  }
-}
 
 class _ContentSection extends StatelessWidget {
   final String position;
@@ -115,13 +90,13 @@ class _ContentSection extends StatelessWidget {
               children: [
                 Flexible(
                     flex: 1,
-                    child: _CardField(
+                    child: CardField(
                       label: 'Posição',
                       value: position,
                     )),
                 Flexible(
                     flex: 1,
-                    child: _CardField(
+                    child: CardField(
                       label: 'Nome',
                       value: name,
                     )),
@@ -131,7 +106,7 @@ class _ContentSection extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                    child: _CardField(
+                    child: CardField(
                   label: 'Veículo',
                   value: vehicle,
                 ))
@@ -141,7 +116,7 @@ class _ContentSection extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                    child: _CardField(
+                    child: CardField(
                   label: 'Matriz',
                   value: headquarter,
                 ))
@@ -160,7 +135,7 @@ class TurnListCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-      elevation: 1,
+      elevation: 3,
       child: ClipPath(
         clipper: ShapeBorderClipper(
             shape: RoundedRectangleBorder(
