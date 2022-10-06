@@ -22,9 +22,13 @@ class _MyTripViewState extends State<MyTripView> {
             Flexible(
               child: myTripDateField(firstDate, 'Data de inicio'),
             ),
-            const SizedBox(
-              width: 50,
-            ),
+          ],
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Row(
+          children: [
             Flexible(
               child: myTripDateField(lastDate, 'Data de fim'),
             ),
@@ -58,16 +62,16 @@ class _MyTripViewState extends State<MyTripView> {
         enableSuggestions: false,
         autocorrect: false,
         maxLength: 10,
-
         style: const TextStyle(
           fontSize: 15,
         ),
+        cursorColor: const Color(0xFF487873).withOpacity(0.10),
         decoration: InputDecoration(
           counterText: '',
           filled: true,
           fillColor: Colors.white,
           isDense: true,
-          contentPadding: const EdgeInsets.all(20),
+          contentPadding: const EdgeInsets.all(10),
           labelText: label,
           labelStyle: const TextStyle(fontSize: 16, color: Color(0xFF000D0C)),
           hintText: 'Informe o valor',
@@ -77,7 +81,7 @@ class _MyTripViewState extends State<MyTripView> {
           ),
           prefixIcon: const Padding(
             padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-            child: Icon(Icons.calendar_month_outlined),
+            child: Icon(Icons.calendar_month_outlined,),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(25),

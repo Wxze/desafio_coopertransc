@@ -60,9 +60,9 @@ class _TripListCardState extends State<TripListCard> {
                 ),
                 const SizedBox(height: 10),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Flexible(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Flexible(
                       child: CardIconField(
                         label: 'Rota',
                         firstValue: 'Serrana SP',
@@ -70,6 +70,11 @@ class _TripListCardState extends State<TripListCard> {
                         icon: Icons.arrow_forward_ios,
                       ),
                     ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
                     Flexible(
                       child: Row(
                         children: const [
@@ -77,11 +82,12 @@ class _TripListCardState extends State<TripListCard> {
                               child: CardField(
                                   label: 'Marcou em:', value: '28/09/2022')),
                           SizedBox(
-                            width: 15,
+                            width: 50,
                           ),
                           Flexible(
-                              child: CardField(
-                                  label: 'Viajou em:', value: '28/09/2022')),
+                            child: CardField(
+                                label: 'Viajou em:', value: '28/09/2022'),
+                          ),
                         ],
                       ),
                     ),
@@ -91,8 +97,7 @@ class _TripListCardState extends State<TripListCard> {
                 Row(
                   children: const [
                     Expanded(
-                      child:
-                      CardField(label: 'Observação', value: 'Sou lolli'),
+                      child: CardField(label: 'Observação', value: 'Sou lolli'),
                     ),
                   ],
                 ),
