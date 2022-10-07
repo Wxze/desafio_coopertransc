@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../widgets/trip_list_card.dart';
 
@@ -20,7 +21,7 @@ class _MyTripViewState extends State<MyTripView> {
         Row(
           children: [
             Flexible(
-              child: myTripDateField(firstDate, 'Data de inicio'),
+              child: myTripDateField(firstDate, 'Data de inicio', true),
             ),
           ],
         ),
@@ -30,7 +31,7 @@ class _MyTripViewState extends State<MyTripView> {
         Row(
           children: [
             Flexible(
-              child: myTripDateField(lastDate, 'Data de fim'),
+              child: myTripDateField(lastDate, 'Data de fim', false),
             ),
           ],
         ),
@@ -54,7 +55,7 @@ class _MyTripViewState extends State<MyTripView> {
     return const TripListCard();
   }
 
-  Widget myTripDateField(inputDate, label) {
+  Widget myTripDateField(inputDate, label, bool firstField) {
     return Container(
       margin: const EdgeInsets.only(top: 6),
       child: TextFormField(
@@ -71,7 +72,7 @@ class _MyTripViewState extends State<MyTripView> {
           filled: true,
           fillColor: Colors.white,
           isDense: true,
-          contentPadding: const EdgeInsets.all(10),
+          contentPadding: const EdgeInsets.all(18),
           labelText: label,
           labelStyle: const TextStyle(fontSize: 16, color: Color(0xFF000D0C)),
           hintText: 'Informe o valor',
@@ -98,6 +99,19 @@ class _MyTripViewState extends State<MyTripView> {
             ),
           ),
         ),
+        onTap: () async {
+          DateTime? pickeddate = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(2000), lastDate: DateTime(2222));
+          
+          if(pickeddate != null && firstField == true){
+            setState(() {
+              firstDate.text =  DateFormat('dd / MM / yyyy').format(pickeddate);
+            });
+          }else if(pickeddate != null && firstField == false){
+            setState(() {
+              lastDate.text =  DateFormat('dd / MM / yyyy').format(pickeddate);
+            });
+          }
+        },
       ),
     );
   }

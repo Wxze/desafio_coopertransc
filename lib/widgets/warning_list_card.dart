@@ -16,38 +16,44 @@ class WarningListCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(5),
           )),
           child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              decoration: BoxDecoration(
-                border: Border(
-                    left: BorderSide(
-                        color: const Color(0xFF1A5650).withOpacity(0.75),
-                        width: 5)),
-                color: Colors.white,
-              ),
-              child: Expanded(
-                  child: Column(
-                children: [
-                  Row(
-                    children: [
-                      const Icon(Icons.warning, color: Color(0xFF1A5650)),
-                      const SizedBox(width: 16),
-                      Text(title,
-                          style: const TextStyle(
-                            color: Color(0xFF000D0C),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ))
-                    ],
-                  ),
-                  const SizedBox(height: 12),
-                  Column(children: [
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            decoration: BoxDecoration(
+              border: Border(
+                  left: BorderSide(
+                      color: const Color(0xFF1A5650).withOpacity(0.75),
+                      width: 5)),
+              color: Colors.white,
+            ),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    const Icon(Icons.warning, color: Color(0xFF1A5650)),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Text(
+                        title,
+                        style: const TextStyle(
+                          color: Color(0xFF000D0C),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Column(
+                  children: [
                     Text(message,
                         textAlign: TextAlign.justify,
                         style: const TextStyle(
                             color: Color(0xFF000D0C), fontSize: 14))
-                  ])
-                ],
-              ))),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ));
   }
 }
