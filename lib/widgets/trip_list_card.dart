@@ -97,7 +97,8 @@ class _TripListCardState extends State<TripListCard> {
                 Row(
                   children: const [
                     Expanded(
-                      child: CardField(label: 'Observação', value: 'Sou lolli'),
+                      child: CardField(
+                          label: 'Observação', value: 'Não há observação'),
                     ),
                   ],
                 ),

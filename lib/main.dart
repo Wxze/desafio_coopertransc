@@ -4,7 +4,7 @@ import 'view/home_view.dart';
 
 void main() {
   runApp(
-    MaterialApp(  
+    MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Coopertransc',
       theme: ThemeData(
@@ -16,7 +16,7 @@ void main() {
       initialRoute: '/login',
       routes: {
         '/login': (context) => const LoginView(),
-        '/turn' :(context) => const HomeView(),
+        '/turn': (context) => const HomeView(),
       },
     ),
   );

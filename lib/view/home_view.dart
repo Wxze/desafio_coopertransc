@@ -40,9 +40,7 @@ class _AppBarItem extends StatelessWidget {
                           color: Color(0xFFf9d661).withAlpha(227), width: 2.0))
                   : Border(
                       top: BorderSide(color: Colors.transparent, width: 2.0))),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             Icon(
               icon,
               color: label == currentScreenTitle
@@ -86,7 +84,21 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       appBar: AppBar(
         title: Text(_appBarTitle),
-        //automaticallyImplyLeading: false,
+        leading: leadingIcon(),
+        automaticallyImplyLeading: false,
+        actions: <Widget>[
+          PopupMenuButton(
+            onSelected: handleClick,
+            itemBuilder: (context) {
+              return {'Sair'}.map((String choice) {
+                return PopupMenuItem<String>(
+                  value: choice,
+                  child: Text(choice),
+                );
+              }).toList();
+            },
+          )
+        ],
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -159,6 +171,26 @@ class _HomeViewState extends State<HomeView> {
       case 3:
         _appBarTitle = 'Avisos';
         break;
+    }
+  }
+
+  leadingIcon() {
+    switch (_currentIndex) {
+      case 0:
+        return Icon(Icons.local_shipping);
+      case 1:
+        return Icon(Icons.group);
+      case 2:
+        return Icon(Icons.person);
+      case 3:
+        return Icon(Icons.warning);
+    }
+  }
+
+  void handleClick(String value) {
+    switch (value) {
+      case 'Sair':
+        Navigator.pushNamed(context, '/login');
     }
   }
 }
