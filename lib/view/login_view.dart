@@ -1,4 +1,10 @@
+import 'dart:html';
+
+import 'package:desafio_coopertransc/repository/login_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../models/user.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -8,7 +14,7 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  var txtCpf = TextEditingController();
+  var txtUser = TextEditingController();
   var txtPassword = TextEditingController();
 
   var formKey = GlobalKey<FormState>();
@@ -65,25 +71,20 @@ class _LoginViewState extends State<LoginView> {
                     child: Column(
                       children: [
                         formattedTextField(
-                          txtCpf,
-                          'CPF',
-                          const Icon(
-                            Icons.person,
-                            color: Color(0xFF000D0C),
-                            size: 24,
-                          ),
-                          checkPwField(false)
-                        ),
+                            txtUser,
+                            'Usuário',
+                            const Icon(
+                              Icons.person,
+                              color: Color(0xFF000D0C),
+                              size: 24,
+                            ),
+                            checkPwField(false)),
                         formattedTextField(
-                          txtPassword,
-                          'Senha',
-                          const Icon(
-                            Icons.key,
-                            color: Color(0xFF000D0C),
-                            size: 24
-                          ),
-                          checkPwField(true)
-                        ),
+                            txtPassword,
+                            'Senha',
+                            const Icon(Icons.key,
+                                color: Color(0xFF000D0C), size: 24),
+                            checkPwField(true)),
                         formattedButton('Fazer Login')
                       ],
                     ),
@@ -94,11 +95,10 @@ class _LoginViewState extends State<LoginView> {
                       'Visite nosso site',
                       textAlign: TextAlign.left,
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        color: Color(0xFF002825),
-                        decoration: TextDecoration.underline
-                      ),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: Color(0xFF002825),
+                          decoration: TextDecoration.underline),
                     ),
                   ),
                 ],
@@ -118,7 +118,6 @@ class _LoginViewState extends State<LoginView> {
         obscureText: isPwField,
         enableSuggestions: false,
         autocorrect: false,
-        
         style: const TextStyle(
           fontSize: 15,
         ),
@@ -169,14 +168,34 @@ class _LoginViewState extends State<LoginView> {
             borderRadius: BorderRadius.circular(25),
           ),
         ),
-        child: Text(msg, style: const TextStyle(fontSize: 18),),
-        onPressed: () {Navigator.pushNamed(context, '/turn');},
+        child: Text(
+          msg,
+          style: const TextStyle(fontSize: 18),
+        ),
+        onPressed: () async {
+          User? user =
+              await LoginRepository().login(txtUser.text, txtPassword.text);
+
+          if (user != null) {
+            _setToken(user.token);
+            Navigator.pushNamed(context, '/turn');
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text("Usuário ou senha inválidos"),
+              backgroundColor: Colors.red,
+            ));
+          }
+        },
       ),
     );
   }
 
-bool checkPwField(bool isPw){
-  return isPw;
-}
+  bool checkPwField(bool isPw) {
+    return isPw;
+  }
 
+  void _setToken(token) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('token', token);
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:desafio_coopertransc/widgets/turn_list_card.dart';
 import 'package:desafio_coopertransc/models/turn.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TurnView extends StatefulWidget {
   const TurnView({Key? key}) : super(key: key);
@@ -41,6 +42,16 @@ List<Turn> turnData = <Turn>[
 
 class _TurnViewState extends State<TurnView> {
   @override
+  void initState() {
+    super.initState();
+    teste();
+  }
+
+  void teste() async {
+    print(await _getToken());
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: turnData.length,
@@ -53,5 +64,15 @@ class _TurnViewState extends State<TurnView> {
   Widget turnListTile(int index) {
     return TurnListCard(turnData[index]);
   }
-}
 
+  Future<String> _getToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+
+    if (token != null) {
+      return token;
+    } else {
+      return '';
+    }
+  }
+}
