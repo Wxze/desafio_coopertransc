@@ -10,8 +10,6 @@ class TurnView extends StatefulWidget {
   State<TurnView> createState() => _TurnViewState();
 }
 
-List<Turn> turnData = [];
-
 class _TurnViewState extends State<TurnView> {
   @override
   void initState() {
@@ -24,29 +22,27 @@ class _TurnViewState extends State<TurnView> {
       future: TurnRepository().getTurnList(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          print('boba');
           return const Center(
             child: Text('Não foi possível exibir dos dados.'),
           );
         } else if (snapshot.hasData) {
           var turnData = snapshot.data;
-
           return ListView.builder(
             itemCount: turnData!.length,
             itemBuilder: (context, index) {
-              return turnListTile(index);
+              return turnListTile(index, turnData);
             },
           );
         }
 
-        return const Center(
+        return Center(
           child: CircularProgressIndicator(),
         );
       },
     );
   }
 
-  Widget turnListTile(int index) {
+  Widget turnListTile(int index, var turnData) {
     return TurnListCard(turnData[index]);
   }
 }

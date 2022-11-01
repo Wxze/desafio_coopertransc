@@ -21,10 +21,10 @@ class _DateTimeSection extends StatelessWidget {
             radius: 30,
             backgroundColor: Colors.grey.shade500,
           ),
-          Text(turnData.veiculo,
+          Text(parseTruckType(turnData.tipoVeiculo.toLowerCase()),
               style: TextStyle(
                 fontSize: 18,
-                color: getCardColor(turnData.veiculo.toLowerCase()),
+                color: getCardColor(turnData.tipoVeiculo.toLowerCase()),
                 fontWeight: FontWeight.bold,
               )),
           Text(turnData.dataMarcacao,
@@ -157,13 +157,26 @@ class TurnListCard extends StatelessWidget {
 
 Color getCardColor(String truckType) {
   switch (truckType) {
-    case 'truck':
+    case 'tb':
       return const Color(0xFF1FE059).withOpacity(0.75);
-    case 'bitrem':
+    case 'cvb':
       return const Color(0xFF591FE0).withOpacity(0.75);
-    case 'carreta':
+    case 'cv':
       return const Color(0xFFE0591F).withOpacity(0.75);
     default:
-      return const Color(0xFF1FE059).withOpacity(0.75);
+      return const Color(0xFFE0591F).withOpacity(0.75);
+  }
+}
+
+String parseTruckType(String truckType) {
+  switch (truckType) {
+    case 'tb':
+      return 'Truck';
+    case 'cvb':
+      return 'Bitrem';
+    case 'cv':
+      return 'Carreta';
+    default:
+      return 'Carreta';
   }
 }
