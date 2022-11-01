@@ -35,7 +35,7 @@ class _TurnViewState extends State<TurnView> {
           );
         }
 
-        return Center(
+        return const Center(
           child: CircularProgressIndicator(),
         );
       },
