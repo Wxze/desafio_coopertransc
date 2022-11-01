@@ -1,20 +1,15 @@
 import 'package:desafio_coopertransc/models/turn.dart';
+import 'package:desafio_coopertransc/view/turn_view.dart';
 import 'package:flutter/material.dart';
 
 import 'card_field.dart';
 
 class _DateTimeSection extends StatelessWidget {
-  final String truck;
-  final String date;
-  final String time;
-  final String arrivalTime;
+  final Turn turnData;
 
   const _DateTimeSection({
     Key? key,
-    required this.truck,
-    required this.date,
-    required this.time,
-    required this.arrivalTime,
+    required this.turnData,
   }) : super(key: key);
 
   @override
@@ -26,18 +21,18 @@ class _DateTimeSection extends StatelessWidget {
             radius: 30,
             backgroundColor: Colors.grey.shade500,
           ),
-          Text(truck,
+          Text(turnData.veiculo,
               style: TextStyle(
                 fontSize: 18,
-                color: getCardColor(truck.toLowerCase()),
+                color: getCardColor(turnData.veiculo.toLowerCase()),
                 fontWeight: FontWeight.bold,
               )),
-          Text(date,
+          Text(turnData.dataMarcacao,
               style: const TextStyle(
                 fontSize: 14,
                 color: Color(0xFF000D0C),
               )),
-          Text(time,
+          Text(turnData.horaMarcacao,
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -52,7 +47,7 @@ class _DateTimeSection extends StatelessWidget {
                 fontSize: 10,
                 color: Color(0xFF000D0C),
               )),
-          Text(arrivalTime,
+          Text(turnData.chegada ?? '-',
               style: const TextStyle(
                 fontSize: 10,
                 color: Color(0xFF000D0C),
@@ -63,19 +58,12 @@ class _DateTimeSection extends StatelessWidget {
   }
 }
 
-
 class _ContentSection extends StatelessWidget {
-  final String position;
-  final String name;
-  final String vehicle;
-  final String headquarter;
+  final Turn turnData;
 
   const _ContentSection({
     Key? key,
-    required this.position,
-    required this.name,
-    required this.vehicle,
-    required this.headquarter,
+    required this.turnData,
   }) : super(key: key);
 
   @override
@@ -92,13 +80,13 @@ class _ContentSection extends StatelessWidget {
                     flex: 1,
                     child: CardField(
                       label: 'Posição',
-                      value: position,
+                      value: turnData.id.toString(),
                     )),
                 Flexible(
                     flex: 1,
                     child: CardField(
                       label: 'Nome',
-                      value: name,
+                      value: turnData.cooperado,
                     )),
               ],
             ),
@@ -108,7 +96,7 @@ class _ContentSection extends StatelessWidget {
                 Expanded(
                     child: CardField(
                   label: 'Veículo',
-                  value: vehicle,
+                  value: turnData.veiculo,
                 ))
               ],
             ),
@@ -117,8 +105,8 @@ class _ContentSection extends StatelessWidget {
               children: [
                 Expanded(
                     child: CardField(
-                  label: 'Matriz',
-                  value: headquarter,
+                  label: 'Estados',
+                  value: turnData.estados,
                 ))
               ],
             ),
@@ -146,29 +134,22 @@ class TurnListCard extends StatelessWidget {
             decoration: BoxDecoration(
               border: Border(
                   left: BorderSide(
-                      color: getCardColor(turnData.truckType.toLowerCase()), width: 5)),
+                      color: getCardColor(turnData.tipoVeiculo.toLowerCase()),
+                      width: 5)),
               color: Colors.white,
             ),
-            child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Flexible(
-                    child: _DateTimeSection(
-                    truck: turnData.truckType,
-                    date: turnData.date,
-                    time: turnData.time,
-                    arrivalTime: turnData.arrivalTime,
-                  )),
-                  const SizedBox(width: 8),
-                  Flexible(
-                      flex: 3,
-                      child: _ContentSection(
-                        position: turnData.position,
-                        name: turnData.name,
-                        vehicle: turnData.vehicle,
-                        headquarter: turnData.headquarter
-                      ))
-                ])),
+            child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Flexible(
+                  child: _DateTimeSection(
+                turnData: turnData,
+              )),
+              const SizedBox(width: 8),
+              Flexible(
+                  flex: 3,
+                  child: _ContentSection(
+                    turnData: turnData,
+                  ))
+            ])),
       ),
     );
   }
