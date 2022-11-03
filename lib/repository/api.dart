@@ -20,4 +20,9 @@ abstract class ApiRepository {
       return '';
     }
   }
+
+  static void setToken(token) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('token', token);
+  }
 }
