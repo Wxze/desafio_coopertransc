@@ -81,7 +81,7 @@ class _MyTripViewState extends State<MyTripView> {
     );
   }
 
-  Widget myTripDateField(inputDate, label, bool firstField) {
+  Widget myTripDateField(TextEditingController inputDate, String label, bool firstField) {
     return Container(
       margin: const EdgeInsets.only(top: 6),
       child: TextFormField(
