@@ -1,5 +1,6 @@
 import 'package:desafio_coopertransc/repository/api.dart';
 import 'package:desafio_coopertransc/repository/login_repository.dart';
+import 'package:desafio_coopertransc/widgets/default_text_field.dart';
 import 'package:flutter/material.dart';
 import '../models/user.dart';
 
@@ -67,21 +68,16 @@ class _LoginViewState extends State<LoginView> {
                     key: formKey,
                     child: Column(
                       children: [
-                        formattedTextField(
-                            txtUser,
-                            'Usuário',
-                            const Icon(
-                              Icons.person,
-                              color: Color(0xFF000D0C),
-                              size: 24,
-                            ),
-                            checkPwField(false)),
-                        formattedTextField(
-                            txtPassword,
-                            'Senha',
-                            const Icon(Icons.key,
-                                color: Color(0xFF000D0C), size: 24),
-                            checkPwField(true)),
+                        DefaultTextField(
+                            controllerVariable: txtUser,
+                            label: 'Usuário',
+                            icon: Icons.person,
+                            isPassword: false),
+                        DefaultTextField(
+                            controllerVariable: txtPassword,
+                            label: 'Senha',
+                            icon: Icons.key,
+                            isPassword: true),
                         formattedButton('Fazer Login')
                       ],
                     ),
@@ -102,52 +98,6 @@ class _LoginViewState extends State<LoginView> {
               ),
             )
           ],
-        ),
-      ),
-    );
-  }
-
-  formattedTextField(controllerVar, label, icon, bool isPwField) {
-    return Container(
-      margin: const EdgeInsets.only(top: 40),
-      child: TextFormField(
-        controller: controllerVar,
-        obscureText: isPwField,
-        enableSuggestions: false,
-        autocorrect: false,
-        style: const TextStyle(
-          fontSize: 15,
-        ),
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Colors.white,
-          isDense: true,
-          contentPadding: const EdgeInsets.all(20),
-          labelText: label,
-          labelStyle: const TextStyle(fontSize: 16, color: Color(0xFF000D0C)),
-          hintText: 'Informe o valor',
-          hintStyle: const TextStyle(
-            fontSize: 15,
-            color: Color(0x77103430),
-          ),
-          prefixIcon: Padding(
-            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-            child: icon,
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25),
-            borderSide: const BorderSide(
-              color: Color(0xFF487873),
-              width: 2.4,
-            ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25),
-            borderSide: const BorderSide(
-              color: Color(0xFF103430),
-              width: 1.7,
-            ),
-          ),
         ),
       ),
     );
@@ -185,9 +135,5 @@ class _LoginViewState extends State<LoginView> {
         },
       ),
     );
-  }
-
-  bool checkPwField(bool isPw) {
-    return isPw;
   }
 }
