@@ -18,22 +18,30 @@ class _MyTripViewState extends State<MyTripView> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: [
-            Flexible(
-              child: myTripDateField(firstDate, 'Data de inicio', true),
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Row(
-          children: [
-            Flexible(
-              child: myTripDateField(lastDate, 'Data de fim', false),
-            ),
-          ],
+        Card(
+          elevation: 2,
+          color: Colors.white,
+          child: ExpansionTile(
+            title: const Text('Filtros'),
+            leading: const Icon(Icons.filter_list),
+            childrenPadding:
+                const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+            children: [
+              myTripDateField(firstDate, 'Data de inicio', true),
+              myTripDateField(lastDate, 'Data de fim', false),
+              const SizedBox(
+                height: 15,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  filterButton('Resetar Filtros', const Color(0xFF316762)),
+                  const SizedBox(width: 10),
+                  filterButton('Pesquisar', const Color(0xFF0d2b28)),
+                ],
+              )
+            ],
+          ),
         ),
         const SizedBox(
           height: 16,
@@ -53,6 +61,24 @@ class _MyTripViewState extends State<MyTripView> {
 
   Widget tripListTile(int index) {
     return const TripListCard();
+  }
+
+  Widget filterButton(String msg, Color color) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.all(20),
+        primary: color,
+        shadowColor: Colors.black,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+      ),
+      child: Text(
+        msg,
+        style: const TextStyle(fontSize: 14),
+      ),
+      onPressed: () {},
+    );
   }
 
   Widget myTripDateField(inputDate, label, bool firstField) {
@@ -82,7 +108,9 @@ class _MyTripViewState extends State<MyTripView> {
           ),
           prefixIcon: const Padding(
             padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-            child: Icon(Icons.calendar_month_outlined,),
+            child: Icon(
+              Icons.calendar_month_outlined,
+            ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(25),
@@ -100,15 +128,19 @@ class _MyTripViewState extends State<MyTripView> {
           ),
         ),
         onTap: () async {
-          DateTime? pickeddate = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(2000), lastDate: DateTime(2222));
-          
-          if(pickeddate != null && firstField == true){
+          DateTime? pickeddate = await showDatePicker(
+              context: context,
+              initialDate: DateTime.now(),
+              firstDate: DateTime(2000),
+              lastDate: DateTime(2222));
+
+          if (pickeddate != null && firstField == true) {
             setState(() {
-              firstDate.text =  DateFormat('dd / MM / yyyy').format(pickeddate);
+              firstDate.text = DateFormat('dd / MM / yyyy').format(pickeddate);
             });
-          }else if(pickeddate != null && firstField == false){
+          } else if (pickeddate != null && firstField == false) {
             setState(() {
-              lastDate.text =  DateFormat('dd / MM / yyyy').format(pickeddate);
+              lastDate.text = DateFormat('dd / MM / yyyy').format(pickeddate);
             });
           }
         },
