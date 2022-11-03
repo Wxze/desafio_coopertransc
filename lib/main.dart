@@ -1,3 +1,4 @@
+import 'package:desafio_coopertransc/view/user_view.dart';
 import 'package:flutter/material.dart';
 import 'view/login_view.dart';
 import 'view/home_view.dart';
@@ -17,6 +18,7 @@ void main() {
       routes: {
         '/login': (context) => const LoginView(),
         '/turn': (context) => const HomeView(),
+        '/user': (context) => const UserView()
       },
     ),
   );

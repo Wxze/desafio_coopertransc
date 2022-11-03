@@ -90,7 +90,7 @@ class _HomeViewState extends State<HomeView> {
           PopupMenuButton(
             onSelected: handleClick,
             itemBuilder: (context) {
-              return {'Sair'}.map((String choice) {
+              return {'Meu perfil', 'Sair'}.map((String choice) {
                 return PopupMenuItem<String>(
                   value: choice,
                   child: Text(choice),
@@ -191,6 +191,9 @@ class _HomeViewState extends State<HomeView> {
     switch (value) {
       case 'Sair':
         Navigator.pushNamed(context, '/login');
+        break;
+      case 'Meu perfil':
+        Navigator.pushNamed(context, '/user');
     }
   }
 }
