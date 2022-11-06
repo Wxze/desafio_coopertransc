@@ -23,7 +23,7 @@ class _TurnViewState extends State<TurnView> {
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return const Center(
-            child: Text('Não foi possível exibir dos dados.'),
+            child: Text('Não foi possível exibir os dados.'),
           );
         } else if (snapshot.hasData) {
           var turnData = snapshot.data;

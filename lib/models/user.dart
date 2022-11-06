@@ -3,7 +3,7 @@ class User {
   final String nome;
   final String username;
   final String email;
-  final String avatar;
+  final String? avatar;
   final String token;
 
   User(this.id, this.nome, this.username, this.email, this.avatar, this.token);
@@ -17,5 +17,10 @@ class User {
       json['avatar'],
       json['token'],
     );
+  }
+
+  factory User.fromJsonEdit(Map<String, dynamic> json) {
+    return User(json['id'], json['name'], json['username'], json['email'],
+        json['avatar'], '');
   }
 }
