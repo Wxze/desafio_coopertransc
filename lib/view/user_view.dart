@@ -47,96 +47,117 @@ class _UserViewState extends State<UserView> {
             } else if (snapshot.hasData) {
               User userData = snapshot.data as User;
               return Card(
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(25),
-                        topRight: Radius.circular(25))),
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                  margin: EdgeInsets.zero,
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(25),
+                          topRight: Radius.circular(25))),
+                  child: Container(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
                       children: [
-                        CircleAvatar(
-                          radius: 70,
-                          backgroundColor: Colors.grey.shade500,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            CircleAvatar(
+                              radius: 70,
+                              backgroundColor: Colors.grey.shade500,
+                            ),
+                            const SizedBox(
+                              width: 25,
+                            ),
+                            Flexible(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    userData.nome,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 30),
+                                  ),
+                                  Text(
+                                    userData.email,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.grey),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
                         ),
                         const SizedBox(
-                          width: 45,
+                          height: 75,
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              userData.nome,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 30),
+                        const Text(
+                          'Editar usuário',
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.w600),
+                        ),
+                        Flexible(
+                          fit: FlexFit.tight,
+                          child: Form(
+                            child: Column(
+                              children: [
+                                DefaultTextField(
+                                  controllerVariable: txtUser,
+                                  label: 'Usuário',
+                                  isPassword: false,
+                                  icon: Icons.person,
+                                ),
+                                DefaultTextField(
+                                  controllerVariable: txtEmail,
+                                  label: 'Email',
+                                  isPassword: false,
+                                  icon: Icons.email,
+                                ),
+                                DefaultTextField(
+                                  controllerVariable: txtPassword,
+                                  label: 'Senha',
+                                  isPassword: true,
+                                  icon: Icons.key,
+                                ),
+                                const SizedBox(
+                                  height: 25,
+                                ),
+                                DefaultButton(
+                                  label: 'Editar',
+                                  onClick: () {
+                                    handleApiCall();
+                                  },
+                                ),
+                              ],
                             ),
-                            Text(
-                              userData.email,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.grey),
-                            ),
-                          ],
+                          ),
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    const Center(
-                      child: Text(
-                        'Editar usuário',
-                        style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                    Flexible(
-                      fit: FlexFit.tight,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                        child: Form(
-                          child: Column(
-                            children: [
-                              DefaultTextField(
-                                controllerVariable: txtUser,
-                                label: 'Usuário',
-                                isPassword: false,
-                                icon: Icons.person,
-                              ),
-                              DefaultTextField(
-                                controllerVariable: txtEmail,
-                                label: 'Email',
-                                isPassword: false,
-                                icon: Icons.email,
-                              ),
-                              DefaultTextField(
-                                controllerVariable: txtPassword,
-                                label: 'Senha',
-                                isPassword: true,
-                                icon: Icons.key,
-                              ),
-                              const SizedBox(
-                                height: 25,
-                              ),
-                              DefaultButton(label: 'Editar', onClick: () {}),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
+                  ));
             }
             return const Center(
               child: CircularProgressIndicator(),
             );
           },
         ));
+  }
+
+  void handleApiCall() async {
+    User? user = await UserRepository()
+        .edit(txtUser.text, txtEmail.text, txtPassword.text);
+
+    if (user != null) {
+      setState(() {});
+    } else {
+      showSnackBar('Não foi possível alterar os dados do usuário');
+    }
+  }
+
+  void showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(message),
+      backgroundColor: Colors.red,
+    ));
   }
 
   void handleClick(String value) {
