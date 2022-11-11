@@ -11,6 +11,8 @@ abstract class ApiRepository {
 
   static const USER = '${BASE}user/';
 
+  static const WARNING = '${BASE}avisos';
+
   static Future<String> getToken() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
