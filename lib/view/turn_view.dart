@@ -1,4 +1,5 @@
 import 'package:desafio_coopertransc/repository/turn_repository.dart';
+import 'package:desafio_coopertransc/widgets/list_empty_message.dart';
 import 'package:flutter/material.dart';
 import 'package:desafio_coopertransc/widgets/turn_list_card.dart';
 import 'package:desafio_coopertransc/models/turn.dart';
@@ -27,12 +28,14 @@ class _TurnViewState extends State<TurnView> {
           );
         } else if (snapshot.hasData) {
           List<Turn>? turnData = snapshot.data;
-          return ListView.builder(
-            itemCount: turnData!.length,
-            itemBuilder: (context, index) {
-              return turnListTile(turnData[index]);
-            },
-          );
+          return turnData!.isNotEmpty
+              ? ListView.builder(
+                  itemCount: turnData.length,
+                  itemBuilder: (context, index) {
+                    return turnListTile(turnData[index]);
+                  },
+                )
+              : const ListEmptyMessage(message: 'Nenhuma vez encontrada');
         }
 
         return const Center(

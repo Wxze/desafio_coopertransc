@@ -1,5 +1,6 @@
 import 'package:desafio_coopertransc/models/warning.dart';
 import 'package:desafio_coopertransc/repository/warning_repository.dart';
+import 'package:desafio_coopertransc/widgets/list_empty_message.dart';
 import 'package:desafio_coopertransc/widgets/warning_list_card.dart';
 import 'package:flutter/material.dart';
 
@@ -22,12 +23,14 @@ class _WarningViewState extends State<WarningView> {
           );
         } else if (snapshot.hasData) {
           List<Warning>? warningData = snapshot.data;
-          return ListView.builder(
-            itemCount: warningData!.length,
-            itemBuilder: (context, index) {
-              return warningListTile(warningData[index]);
-            },
-          );
+          return warningData!.isNotEmpty
+              ? ListView.builder(
+                  itemCount: warningData.length,
+                  itemBuilder: (context, index) {
+                    return warningListTile(warningData[index]);
+                  },
+                )
+              : const ListEmptyMessage(message: 'Nenhuma aviso encontrado');
         }
 
         return const Center(
