@@ -1,16 +1,14 @@
+import 'package:desafio_coopertransc/models/trip.dart';
 import 'package:desafio_coopertransc/widgets/card_field.dart';
 import 'package:flutter/material.dart';
 
 import 'card_icon_field.dart';
 
-class TripListCard extends StatefulWidget {
-  const TripListCard({Key? key}) : super(key: key);
+class TripListCard extends StatelessWidget {
+  final Trip tripData;
 
-  @override
-  State<TripListCard> createState() => _TripListCardState();
-}
+  const TripListCard(this.tripData, {Key? key}) : super(key: key);
 
-class _TripListCardState extends State<TripListCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -35,38 +33,38 @@ class _TripListCardState extends State<TripListCard> {
                 Row(
                   children: [
                     CircleAvatar(
-                      radius: 30,
+                      radius: 35,
                       backgroundColor: Colors.grey.shade500,
                     ),
                     const SizedBox(
                       width: 25,
                     ),
-                    const Expanded(
+                    Expanded(
                         child: CardField(
                       label: 'Nome',
-                      value: 'Gabriel Toledo',
+                      value: tripData.nome,
                       fontSize: 20,
                     ))
                   ],
                 ),
                 const SizedBox(height: 16),
                 Row(
-                  children: const [
+                  children: [
                     Expanded(
-                      child:
-                          CardField(label: 'Veículo', value: 'Mercedes L-1113'),
+                      child: CardField(
+                          label: 'Veículo', value: tripData.descricao),
                     ),
                   ],
                 ),
                 const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     Flexible(
                       child: CardIconField(
                         label: 'Rota',
-                        firstValue: 'Serrana SP',
-                        secondValue: 'Ribeirão Preto SP',
+                        firstValue: tripData.cidadeOrigem,
+                        secondValue: tripData.cidadeDestino,
                         icon: Icons.arrow_forward_ios,
                       ),
                     ),
@@ -77,16 +75,18 @@ class _TripListCardState extends State<TripListCard> {
                   children: [
                     Flexible(
                       child: Row(
-                        children: const [
+                        children: [
                           Flexible(
                               child: CardField(
-                                  label: 'Marcou em:', value: '28/09/2022')),
-                          SizedBox(
+                                  label: 'Marcou em:',
+                                  value: tripData.dataMarcacao)),
+                          const SizedBox(
                             width: 50,
                           ),
                           Flexible(
                             child: CardField(
-                                label: 'Viajou em:', value: '28/09/2022'),
+                                label: 'Viajou em:',
+                                value: tripData.dataRetorno ?? '-'),
                           ),
                         ],
                       ),
@@ -95,10 +95,10 @@ class _TripListCardState extends State<TripListCard> {
                 ),
                 const SizedBox(height: 10),
                 Row(
-                  children: const [
+                  children: [
                     Expanded(
-                      child: CardField(
-                          label: 'Observação', value: 'Não há observação'),
+                      child:
+                          CardField(label: 'Observação', value: tripData.obs),
                     ),
                   ],
                 ),

@@ -1,6 +1,7 @@
+import 'package:desafio_coopertransc/models/trip.dart';
+import 'package:desafio_coopertransc/repository/trip_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import '../widgets/trip_list_card.dart';
 
 class MyTripView extends StatefulWidget {
@@ -9,61 +10,76 @@ class MyTripView extends StatefulWidget {
   @override
   State<MyTripView> createState() => _MyTripViewState();
 }
-
 class _MyTripViewState extends State<MyTripView> {
-  TextEditingController firstDate = TextEditingController();
-  TextEditingController lastDate = TextEditingController();
+  TextEditingController initialDate = TextEditingController(text: '');
+  TextEditingController finalDate = TextEditingController(text: '');
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Card(
-          elevation: 2,
-          color: Colors.white,
-          child: ExpansionTile(
-            title: const Text('Filtros'),
-            leading: const Icon(Icons.filter_list),
-            childrenPadding:
-                const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+    return Column(children: [
+      filterCard(),
+      const SizedBox(height: 12),
+      Expanded(
+          child: FutureBuilder<List<Trip>>(
+        future: TripRepository()
+            .myTrip(initialDate: initialDate.text, finalDate: finalDate.text),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return const Center(
+              child: Text('Não foi possível exibir os dados.'),
+            );
+          } else if (snapshot.hasData) {
+            List<Trip>? tripData = snapshot.data;
+            return ListView.builder(
+              itemCount: tripData!.length,
+              itemBuilder: (context, index) {
+                return tripListTile(tripData[index]);
+              },
+            );
+          }
+
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      ))
+    ]);
+  }
+
+  Widget tripListTile(Trip tripData) {
+    return TripListCard(tripData);
+  }
+
+  Widget filterCard() {
+    return Card(
+      elevation: 2,
+      color: Colors.white,
+      child: ExpansionTile(
+        title: const Text('Filtros'),
+        leading: const Icon(Icons.filter_list),
+        childrenPadding:
+            const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        children: [
+          myTripDateField(initialDate, 'Data de inicio', true),
+          myTripDateField(finalDate, 'Data de fim', false),
+          const SizedBox(
+            height: 15,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              myTripDateField(firstDate, 'Data de inicio', true),
-              myTripDateField(lastDate, 'Data de fim', false),
-              const SizedBox(
-                height: 15,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  filterButton('Resetar Filtros', const Color(0xFF316762)),
-                  const SizedBox(width: 10),
-                  filterButton('Pesquisar', const Color(0xFF0d2b28)),
-                ],
-              )
+              filterButton('Resetar Filtros', const Color(0xFF316762), () => resetDateValues()),
+              const SizedBox(width: 10),
+              filterButton(
+                  'Pesquisar', const Color(0xFF0d2b28), () => setState(() {})),
             ],
-          ),
-        ),
-        const SizedBox(
-          height: 16,
-        ),
-        Expanded(
-          child: ListView.builder(
-            itemCount: 8,
-            itemBuilder: (context, index) {
-              return tripListTile(index);
-            },
-            shrinkWrap: true,
-          ),
-        ),
-      ],
+          )
+        ],
+      ),
     );
   }
 
-  Widget tripListTile(int index) {
-    return const TripListCard();
-  }
-
-  Widget filterButton(String msg, Color color) {
+  Widget filterButton(String msg, Color color, Function handlePress) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.all(20),
@@ -77,11 +93,21 @@ class _MyTripViewState extends State<MyTripView> {
         msg,
         style: const TextStyle(fontSize: 14),
       ),
-      onPressed: () {},
+      onPressed: () {
+        handlePress();
+      },
     );
   }
 
-  Widget myTripDateField(TextEditingController inputDate, String label, bool firstField) {
+  void resetDateValues() {
+    setState(() {
+      initialDate.text = '';
+      finalDate.text = '';
+    });
+  }
+
+  Widget myTripDateField(
+      TextEditingController inputDate, String label, bool firstField) {
     return Container(
       margin: const EdgeInsets.only(top: 6),
       child: TextFormField(
@@ -135,13 +161,9 @@ class _MyTripViewState extends State<MyTripView> {
               lastDate: DateTime(2222));
 
           if (pickeddate != null && firstField == true) {
-            setState(() {
-              firstDate.text = DateFormat('dd / MM / yyyy').format(pickeddate);
-            });
+            initialDate.text = DateFormat('dd/MM/yyyy').format(pickeddate);
           } else if (pickeddate != null && firstField == false) {
-            setState(() {
-              lastDate.text = DateFormat('dd / MM / yyyy').format(pickeddate);
-            });
+            finalDate.text = DateFormat('dd/MM/yyyy').format(pickeddate);
           }
         },
       ),

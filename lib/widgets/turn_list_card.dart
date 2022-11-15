@@ -18,7 +18,7 @@ class _DateTimeSection extends StatelessWidget {
       children: [
         Column(children: [
           CircleAvatar(
-            radius: 30,
+            radius: 35,
             backgroundColor: Colors.grey.shade500,
           ),
           Text(parseTruckType(turnData.tipoVeiculo.toLowerCase()),
@@ -39,7 +39,7 @@ class _DateTimeSection extends StatelessWidget {
                 color: Color(0xFF000D0C),
               )),
         ]),
-        const SizedBox(height: 10),
+        const SizedBox(height: 8),
         Column(children: [
           const Text("Data chegada",
               style: TextStyle(

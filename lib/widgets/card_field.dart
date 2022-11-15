@@ -21,6 +21,7 @@ class CardField extends StatelessWidget {
             style: const TextStyle(
               fontWeight: FontWeight.bold,
             )),
+        const SizedBox(height: 4),
         Text(value,
             style: TextStyle(
               color: const Color(0xFF000D0C),
