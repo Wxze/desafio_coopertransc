@@ -16,6 +16,7 @@ class _UserViewState extends State<UserView> {
   var txtUser = TextEditingController();
   var txtEmail = TextEditingController();
   var txtPassword = TextEditingController();
+  var formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -98,6 +99,7 @@ class _UserViewState extends State<UserView> {
                         Flexible(
                           fit: FlexFit.tight,
                           child: Form(
+                            key: formKey,
                             child: Column(
                               children: [
                                 DefaultTextField(
@@ -124,7 +126,9 @@ class _UserViewState extends State<UserView> {
                                 DefaultButton(
                                   label: 'Editar',
                                   onClick: () {
-                                    handleApiCall();
+                                    if (formKey.currentState!.validate()) {
+                                      handleApiCall();
+                                    }
                                   },
                                 ),
                               ],
