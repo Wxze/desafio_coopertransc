@@ -25,6 +25,12 @@ class DefaultTextField extends StatelessWidget {
         obscureText: isPassword,
         enableSuggestions: false,
         autocorrect: false,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Preencha este campo';
+          }
+          return null;
+        },
         style: const TextStyle(
           fontSize: 15,
         ),
@@ -55,6 +61,20 @@ class DefaultTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(25),
             borderSide: const BorderSide(
               color: Color(0xFF103430),
+              width: 1.7,
+            ),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25),
+            borderSide: const BorderSide(
+              color: Colors.red,
+              width: 1.7,
+            ),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25),
+            borderSide: const BorderSide(
+              color: Colors.red,
               width: 1.7,
             ),
           ),

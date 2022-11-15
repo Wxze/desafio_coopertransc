@@ -120,18 +120,19 @@ class _LoginViewState extends State<LoginView> {
           style: const TextStyle(fontSize: 18),
         ),
         onPressed: () async {
-          User? user =
-              await LoginRepository().login(txtUser.text, txtPassword.text);
+          if (formKey.currentState!.validate()) {
+            User? user =
+                await LoginRepository().login(txtUser.text, txtPassword.text);
 
-          if (user != null) {
-            ApiRepository.setUserData(user.token, user.id.toString());
-            //ApiRepository.setUserId(user.id.toString());
-            Navigator.pushNamed(context, '/turn');
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text("Usuário ou senha inválidos"),
-              backgroundColor: Colors.red,
-            ));
+            if (user != null) {
+              ApiRepository.setUserData(user.token, user.id.toString());
+              Navigator.pushNamed(context, '/turn');
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text("Usuário ou senha inválidos"),
+                backgroundColor: Colors.red,
+              ));
+            }
           }
         },
       ),
