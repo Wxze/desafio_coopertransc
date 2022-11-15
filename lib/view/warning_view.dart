@@ -21,11 +21,11 @@ class _WarningViewState extends State<WarningView> {
             child: Text('Não foi possível exibir os dados.'),
           );
         } else if (snapshot.hasData) {
-          var warningData = snapshot.data;
+          List<Warning>? warningData = snapshot.data;
           return ListView.builder(
             itemCount: warningData!.length,
             itemBuilder: (context, index) {
-              return tripListTile(warningData[index]);
+              return warningListTile(warningData[index]);
             },
           );
         }
@@ -37,7 +37,7 @@ class _WarningViewState extends State<WarningView> {
     );
   }
 
-  Widget tripListTile(Warning warningData) {
+  Widget warningListTile(Warning warningData) {
     return WarningListCard(
         warningData.titulo == '' ? 'Aviso' : warningData.titulo,
         removeHtmlTags(warningData.mensagem));
