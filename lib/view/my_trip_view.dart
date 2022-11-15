@@ -1,5 +1,6 @@
 import 'package:desafio_coopertransc/models/trip.dart';
 import 'package:desafio_coopertransc/repository/trip_repository.dart';
+import 'package:desafio_coopertransc/widgets/list_empty_message.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../widgets/trip_list_card.dart';
@@ -10,6 +11,7 @@ class MyTripView extends StatefulWidget {
   @override
   State<MyTripView> createState() => _MyTripViewState();
 }
+
 class _MyTripViewState extends State<MyTripView> {
   TextEditingController initialDate = TextEditingController(text: '');
   TextEditingController finalDate = TextEditingController(text: '');
@@ -30,12 +32,14 @@ class _MyTripViewState extends State<MyTripView> {
             );
           } else if (snapshot.hasData) {
             List<Trip>? tripData = snapshot.data;
-            return ListView.builder(
-              itemCount: tripData!.length,
-              itemBuilder: (context, index) {
-                return tripListTile(tripData[index]);
-              },
-            );
+            return tripData!.isNotEmpty
+                ? ListView.builder(
+                    itemCount: tripData.length,
+                    itemBuilder: (context, index) {
+                      return tripListTile(tripData[index]);
+                    },
+                  )
+                : const ListEmptyMessage(message: 'Nenhuma viagem encontrada');
           }
 
           return const Center(
@@ -68,7 +72,8 @@ class _MyTripViewState extends State<MyTripView> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              filterButton('Resetar Filtros', const Color(0xFF316762), () => resetDateValues()),
+              filterButton('Resetar Filtros', const Color(0xFF316762),
+                  () => resetDateValues()),
               const SizedBox(width: 10),
               filterButton(
                   'Pesquisar', const Color(0xFF0d2b28), () => setState(() {})),
