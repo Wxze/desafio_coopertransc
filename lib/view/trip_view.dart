@@ -12,17 +12,18 @@ class TripView extends StatefulWidget {
 class _TripViewState extends State<TripView> {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      //itemCount: turnData.length,
-      itemCount: 8,
-      itemBuilder: (context, index) {
-        return tripListTile(index);
-      },
-    );
+    return const Text('teste');
+    // ListView.builder(
+    //   //itemCount: turnData.length,
+    //   itemCount: 8,
+    //   itemBuilder: (context, index) {
+    //     return tripListTile(index);
+    //   },
+    // );
   }
 
-  Widget tripListTile(int index) {
-    //return TripListCard(turnData[index]);
-    return const TripListCard();
-  }
+  // Widget tripListTile(int index) {
+  //   //return TripListCard(turnData[index]);
+  //   return const TripListCard();
+  // }
 }

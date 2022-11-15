@@ -27,6 +27,7 @@ class CardIconField extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
+        const SizedBox(height: 4),
         Row(
           children: [
             Flexible(

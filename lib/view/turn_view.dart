@@ -26,11 +26,11 @@ class _TurnViewState extends State<TurnView> {
             child: Text('Não foi possível exibir os dados.'),
           );
         } else if (snapshot.hasData) {
-          var turnData = snapshot.data;
+          List<Turn>? turnData = snapshot.data;
           return ListView.builder(
             itemCount: turnData!.length,
             itemBuilder: (context, index) {
-              return turnListTile(index, turnData);
+              return turnListTile(turnData[index]);
             },
           );
         }
@@ -42,7 +42,7 @@ class _TurnViewState extends State<TurnView> {
     );
   }
 
-  Widget turnListTile(int index, var turnData) {
-    return TurnListCard(turnData[index]);
+  Widget turnListTile(Turn turnData) {
+    return TurnListCard(turnData);
   }
 }
