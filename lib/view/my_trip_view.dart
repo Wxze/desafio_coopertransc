@@ -1,5 +1,6 @@
 import 'package:desafio_coopertransc/models/trip.dart';
 import 'package:desafio_coopertransc/repository/trip_repository.dart';
+import 'package:desafio_coopertransc/widgets/defaul_card_message.dart';
 import 'package:desafio_coopertransc/widgets/list_empty_message.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -39,7 +40,7 @@ class _MyTripViewState extends State<MyTripView> {
                       return tripListTile(tripData[index]);
                     },
                   )
-                : const ListEmptyMessage(message: 'Nenhuma viagem encontrada');
+                : const DefaultCardMessage(message: 'Nenhuma viagem encontrada');
           }
 
           return const Center(
