@@ -1,7 +1,6 @@
 import 'package:desafio_coopertransc/models/trip.dart';
 import 'package:desafio_coopertransc/widgets/card_field.dart';
 import 'package:flutter/material.dart';
-
 import 'card_icon_field.dart';
 
 class TripListCard extends StatelessWidget {
@@ -37,68 +36,84 @@ class TripListCard extends StatelessWidget {
                       backgroundColor: Colors.grey.shade500,
                     ),
                     const SizedBox(
-                      width: 25,
+                      width: 16,
                     ),
                     Expanded(
-                        child: CardField(
-                      label: 'Nome',
-                      value: tripData.nome,
-                      fontSize: 20,
-                    ))
+                      child: Text(
+                        tripData.nome,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF000D0C),
+                        ),
+                      ),
+                    )
                   ],
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 12),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      fit: FlexFit.tight,
+                      flex: 2,
+                      child: CardField(
+                          label: "Veículo", value: tripData.descricao),
+                    ),
+                    const SizedBox(width: 6),
+                    Flexible(
+                      fit: FlexFit.tight,
+                      child: CardField(label: "Placa", value: tripData.placa),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      flex: 2,
+                      fit: FlexFit.tight,
+                      child: CardField(
+                          label: "Data marcação:",
+                          value: tripData.dataMarcacao),
+                    ),
+                    const SizedBox(width: 6),
+                    Flexible(
+                      fit: FlexFit.tight,
+                      child: CardField(
+                          label: "Data retorno:",
+                          value: tripData.dataRetorno ?? '-'),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                      child: CardField(
-                          label: 'Veículo', value: tripData.descricao),
+                      child: CardIconField(
+                        label: "Rota:",
+                        fontSize: 12,
+                        icon: Icons.arrow_forward_ios,
+                        firstValue: tripData.cidadeOrigem,
+                        secondValue: tripData.cidadeDestino,
+                      ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 12),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Flexible(
-                      child: CardIconField(
-                        label: 'Rota',
-                        firstValue: tripData.cidadeOrigem,
-                        secondValue: tripData.cidadeDestino,
-                        icon: Icons.arrow_forward_ios,
+                      fit: FlexFit.tight,
+                      child: CardField(
+                        label: "Observação:",
+                        value: tripData.obs,
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    Flexible(
-                      child: Row(
-                        children: [
-                          Flexible(
-                              child: CardField(
-                                  label: 'Marcou em:',
-                                  value: tripData.dataMarcacao)),
-                          const SizedBox(
-                            width: 50,
-                          ),
-                          Flexible(
-                            child: CardField(
-                                label: 'Viajou em:',
-                                value: tripData.dataRetorno ?? '-'),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    Expanded(
-                      child:
-                          CardField(label: 'Observação', value: tripData.obs),
                     ),
                   ],
                 ),
