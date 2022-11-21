@@ -83,7 +83,10 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_appBarTitle),
+        title: Text(_appBarTitle,
+            style: TextStyle(
+              fontSize: 16,
+            )),
         leading: leadingIcon(),
         automaticallyImplyLeading: false,
         actions: <Widget>[
