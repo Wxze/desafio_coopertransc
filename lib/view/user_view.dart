@@ -18,12 +18,111 @@ class _UserViewState extends State<UserView> {
   var txtPassword = TextEditingController();
   var formKey = GlobalKey<FormState>();
 
+  Widget userDataSection(User userData) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CircleAvatar(
+            radius: 45,
+            backgroundColor: Colors.grey.shade500,
+          ),
+          const SizedBox(width: 20),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  userData.nome,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 28),
+                ),
+                Text(
+                  userData.email,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white54,
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget userDataForm(User userData) {
+    return ClipRRect(
+      child: Card(
+        margin: EdgeInsets.zero,
+        child: Container(
+          decoration: const BoxDecoration(color: Colors.white),
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              Flexible(
+                fit: FlexFit.tight,
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      DefaultTextField(
+                        controllerVariable: txtUser,
+                        label: 'Usuário',
+                        isPassword: false,
+                        icon: Icons.person,
+                      ),
+                      DefaultTextField(
+                        controllerVariable: txtEmail,
+                        label: 'Email',
+                        isPassword: false,
+                        icon: Icons.email,
+                      ),
+                      DefaultTextField(
+                        controllerVariable: txtPassword,
+                        label: 'Senha',
+                        isPassword: true,
+                        icon: Icons.key,
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      DefaultButton(
+                        label: 'Editar',
+                        onClick: () {
+                          if (formKey.currentState!.validate()) {
+                            handleApiCall();
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0xFF1A5650),
+        backgroundColor: const Color(0XFF1A5650),
         appBar: AppBar(
           automaticallyImplyLeading: true,
+          title: const Text("Editar Usuário",
+              style: TextStyle(
+                fontSize: 16,
+              )),
+          centerTitle: true,
           elevation: 0,
           actions: <Widget>[
             PopupMenuButton(
@@ -47,97 +146,12 @@ class _UserViewState extends State<UserView> {
                   child: Text('Não foi possível exibir os dados'));
             } else if (snapshot.hasData) {
               User userData = snapshot.data as User;
-              return Card(
-                  margin: EdgeInsets.zero,
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(25),
-                          topRight: Radius.circular(25))),
-                  child: Container(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            CircleAvatar(
-                              radius: 70,
-                              backgroundColor: Colors.grey.shade500,
-                            ),
-                            const SizedBox(
-                              width: 25,
-                            ),
-                            Flexible(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    userData.nome,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 30),
-                                  ),
-                                  Text(
-                                    userData.email,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        color: Colors.grey),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 75,
-                        ),
-                        const Text(
-                          'Editar usuário',
-                          style: TextStyle(
-                              fontSize: 30, fontWeight: FontWeight.w600),
-                        ),
-                        Flexible(
-                          fit: FlexFit.tight,
-                          child: Form(
-                            key: formKey,
-                            child: Column(
-                              children: [
-                                DefaultTextField(
-                                  controllerVariable: txtUser,
-                                  label: 'Usuário',
-                                  isPassword: false,
-                                  icon: Icons.person,
-                                ),
-                                DefaultTextField(
-                                  controllerVariable: txtEmail,
-                                  label: 'Email',
-                                  isPassword: false,
-                                  icon: Icons.email,
-                                ),
-                                DefaultTextField(
-                                  controllerVariable: txtPassword,
-                                  label: 'Senha',
-                                  isPassword: true,
-                                  icon: Icons.key,
-                                ),
-                                const SizedBox(
-                                  height: 25,
-                                ),
-                                DefaultButton(
-                                  label: 'Editar',
-                                  onClick: () {
-                                    if (formKey.currentState!.validate()) {
-                                      handleApiCall();
-                                    }
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ));
+              return Column(
+                children: [
+                  Flexible(flex: 1, child: userDataSection(userData)),
+                  Flexible(flex: 4, child: userDataForm(userData))
+                ],
+              );
             }
             return const Center(
               child: CircularProgressIndicator(),
