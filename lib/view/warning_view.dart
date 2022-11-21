@@ -1,5 +1,6 @@
 import 'package:desafio_coopertransc/models/warning.dart';
 import 'package:desafio_coopertransc/repository/warning_repository.dart';
+import 'package:desafio_coopertransc/widgets/defaul_card_message.dart';
 import 'package:desafio_coopertransc/widgets/list_empty_message.dart';
 import 'package:desafio_coopertransc/widgets/warning_list_card.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ class _WarningViewState extends State<WarningView> {
                     return warningListTile(warningData[index]);
                   },
                 )
-              : const ListEmptyMessage(message: 'Nenhuma aviso encontrado');
+              : const DefaultCardMessage(message: 'Nenhum aviso encontrado');
         }
 
         return const Center(

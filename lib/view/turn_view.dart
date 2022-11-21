@@ -1,4 +1,5 @@
 import 'package:desafio_coopertransc/repository/turn_repository.dart';
+import 'package:desafio_coopertransc/widgets/defaul_card_message.dart';
 import 'package:desafio_coopertransc/widgets/list_empty_message.dart';
 import 'package:flutter/material.dart';
 import 'package:desafio_coopertransc/widgets/turn_list_card.dart';
@@ -35,7 +36,7 @@ class _TurnViewState extends State<TurnView> {
                     return turnListTile(turnData[index]);
                   },
                 )
-              : const ListEmptyMessage(message: 'Nenhuma vez encontrada');
+              : const DefaultCardMessage(message: 'Nenhuma vez encontrada');
         }
 
         return const Center(

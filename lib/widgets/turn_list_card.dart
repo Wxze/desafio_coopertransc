@@ -1,4 +1,5 @@
 import 'package:desafio_coopertransc/models/turn.dart';
+import 'package:desafio_coopertransc/utils/format_date.dart';
 import 'package:desafio_coopertransc/view/turn_view.dart';
 import 'package:flutter/material.dart';
 
@@ -21,20 +22,21 @@ class _DateTimeSection extends StatelessWidget {
             radius: 35,
             backgroundColor: Colors.grey.shade500,
           ),
+          const SizedBox(height: 10),
           Text(parseTruckType(turnData.tipoVeiculo.toLowerCase()),
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 16,
                 color: getCardColor(turnData.tipoVeiculo.toLowerCase()),
                 fontWeight: FontWeight.bold,
               )),
-          Text(turnData.dataMarcacao,
+          Text(FormatDate.formatDate(turnData.dataMarcacao) ?? '-',
               style: const TextStyle(
                 fontSize: 14,
                 color: Color(0xFF000D0C),
               )),
           Text(turnData.horaMarcacao,
               style: const TextStyle(
-                fontSize: 20,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFF000D0C),
               )),
@@ -140,12 +142,13 @@ class TurnListCard extends StatelessWidget {
             ),
             child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Flexible(
-                  child: _DateTimeSection(
+                child: _DateTimeSection(
                 turnData: turnData,
               )),
               const SizedBox(width: 8),
               Flexible(
-                  flex: 3,
+                  fit: FlexFit.tight,
+                  flex: 2,
                   child: _ContentSection(
                     turnData: turnData,
                   ))

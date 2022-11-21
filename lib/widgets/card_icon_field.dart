@@ -39,12 +39,12 @@ class CardIconField extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(width: 21,),
+            const SizedBox(width: 12,),
             Icon(
               icon,
               size: fontSize ?? 14,
             ),
-            const SizedBox(width: 20,),
+            const SizedBox(width: 12,),
             Flexible(
               child: Text(
                 secondValue,
