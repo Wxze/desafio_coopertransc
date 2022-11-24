@@ -59,51 +59,70 @@ class _UserViewState extends State<UserView> {
   }
 
   Widget userDataForm(User userData) {
-    return ClipRRect(
-      child: Card(
-        margin: EdgeInsets.zero,
+    return Card(
+      margin: EdgeInsets.zero,
+      child: SingleChildScrollView(
         child: Container(
           decoration: const BoxDecoration(color: Colors.white),
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 40),
           child: Column(
             children: [
-              Flexible(
-                fit: FlexFit.tight,
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    children: [
-                      DefaultTextField(
-                        controllerVariable: txtUser,
-                        label: 'Usuário',
-                        isPassword: false,
-                        icon: Icons.person,
-                      ),
-                      DefaultTextField(
-                        controllerVariable: txtEmail,
-                        label: 'Email',
-                        isPassword: false,
-                        icon: Icons.email,
-                      ),
-                      DefaultTextField(
-                        controllerVariable: txtPassword,
-                        label: 'Senha',
-                        isPassword: true,
-                        icon: Icons.key,
-                      ),
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      DefaultButton(
-                        label: 'Editar',
-                        onClick: () {
-                          if (formKey.currentState!.validate()) {
-                            handleApiCall();
-                          }
-                        },
-                      ),
-                    ],
-                  ),
+              Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    Row(children: [
+                      Flexible(
+                        child: DefaultTextField(
+                          controllerVariable: txtUser,
+                          label: 'Usuário',
+                          isPassword: false,
+                          icon: Icons.person,
+                        ),
+                      )
+                    ]),
+                    const SizedBox(height: 40),
+                    Row(
+                      children: [
+                        Flexible(
+                          child: DefaultTextField(
+                            controllerVariable: txtEmail,
+                            label: 'Email',
+                            isPassword: false,
+                            icon: Icons.email,
+                          ),
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 40),
+                    Row(
+                      children: [
+                        Flexible(
+                          child: DefaultTextField(
+                            controllerVariable: txtPassword,
+                            label: 'Senha',
+                            isPassword: true,
+                            icon: Icons.key,
+                          ),
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 40),
+                    Row(
+                      children: [
+                        Flexible(
+                          child: DefaultButton(
+                            label: 'Editar',
+                            onClick: () {
+                              if (formKey.currentState!.validate()) {
+                                handleApiCall();
+                              }
+                            },
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -150,8 +169,8 @@ class _UserViewState extends State<UserView> {
               User userData = snapshot.data as User;
               return Column(
                 children: [
-                  Flexible(flex: 1, child: userDataSection(userData)),
-                  Flexible(flex: 4, child: userDataForm(userData))
+                  userDataSection(userData),
+                  Expanded(child: userDataForm(userData))
                 ],
               );
             }

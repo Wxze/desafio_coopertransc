@@ -18,7 +18,7 @@ class DefaultCardMessage extends StatelessWidget {
             ),
           ),
           child: Container(
-            height: MediaQuery.of(context).size.height * 0.10,
+            height: MediaQuery.of(context).size.height * 0.15,
             decoration: const BoxDecoration(color: Colors.white),
             padding: const EdgeInsets.all(16),
             child: Center(

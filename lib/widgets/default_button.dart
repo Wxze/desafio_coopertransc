@@ -12,25 +12,22 @@ class DefaultButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 40),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          minimumSize: const Size.fromHeight(55),
-          primary: const Color(0xFF1A5650),
-          shadowColor: Colors.black,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25),
-          ),
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        minimumSize: const Size.fromHeight(55),
+        primary: const Color(0xFF1A5650),
+        shadowColor: Colors.black,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
         ),
-        child: Text(
-          label,
-          style: const TextStyle(fontSize: 18),
-        ),
-        onPressed: () async {
-          onClick();
-        },
       ),
+      child: Text(
+        label,
+        style: const TextStyle(fontSize: 18),
+      ),
+      onPressed: () async {
+        onClick();
+      },
     );
   }
 }

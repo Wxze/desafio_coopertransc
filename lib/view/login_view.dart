@@ -44,11 +44,7 @@ class _LoginViewState extends State<LoginView> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(
-                  0.07 * (MediaQuery.of(context).size.width),
-                  0.052 * (MediaQuery.of(context).size.height),
-                  0.07 * (MediaQuery.of(context).size.width),
-                  0),
+              padding: const EdgeInsets.symmetric(horizontal: 16,  vertical: 30),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -68,11 +64,13 @@ class _LoginViewState extends State<LoginView> {
                     key: formKey,
                     child: Column(
                       children: [
+                        const SizedBox(height: 30),
                         DefaultTextField(
                             controllerVariable: txtUser,
                             label: 'Usuário',
                             icon: Icons.person,
                             isPassword: false),
+                        const SizedBox(height: 30),
                         DefaultTextField(
                             controllerVariable: txtPassword,
                             label: 'Senha',
