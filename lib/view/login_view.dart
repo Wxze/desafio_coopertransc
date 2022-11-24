@@ -128,7 +128,7 @@ class _LoginViewState extends State<LoginView> {
               ApiRepository.setUserData(user.token, user.id.toString());
               redirectUser();
             } else {
-              showSnackBar();
+              showSnackBar("Usuário ou senha inválidos");
             }
           }
         },
@@ -140,9 +140,17 @@ class _LoginViewState extends State<LoginView> {
     Navigator.pushNamed(context, '/turn');
   }
 
-  void showSnackBar() {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Text("Usuário ou senha inválidos"),
+  void showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      duration: const Duration(seconds: 2),
+      content: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+        const Icon(
+          Icons.error,
+          color: Colors.white,
+        ),
+        const SizedBox(width: 10),
+        Flexible(child: Text(message))
+      ]),
       backgroundColor: Colors.red,
     ));
   }

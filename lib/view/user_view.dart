@@ -173,6 +173,7 @@ class _UserViewState extends State<UserView> {
 
   void showSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      duration: const Duration(seconds: 2),
       content: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
         const Icon(
           Icons.error,
