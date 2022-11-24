@@ -40,13 +40,14 @@ class _UserViewState extends State<UserView> {
                   style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w500,
-                      fontSize: 28),
+                      fontSize: 25),
                 ),
                 Text(
                   userData.email,
                   style: const TextStyle(
-                    fontWeight: FontWeight.w400,
-                    color: Colors.white54,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
+                    color: Colors.white60,
                   ),
                 ),
               ],
