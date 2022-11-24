@@ -1,6 +1,5 @@
 import 'package:desafio_coopertransc/models/turn.dart';
 import 'package:desafio_coopertransc/utils/format_date.dart';
-import 'package:desafio_coopertransc/view/turn_view.dart';
 import 'package:flutter/material.dart';
 
 import 'card_field.dart';
