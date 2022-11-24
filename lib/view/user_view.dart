@@ -142,8 +142,9 @@ class _UserViewState extends State<UserView> {
           future: UserRepository().getUser(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              return const Center(
-                  child: Text('Não foi possível exibir os dados'));
+              Future.delayed(Duration.zero, () {
+                showSnackBar(snapshot.error.toString());
+              });
             } else if (snapshot.hasData) {
               User userData = snapshot.data as User;
               return Column(
@@ -163,7 +164,6 @@ class _UserViewState extends State<UserView> {
   void handleApiCall() async {
     User? user = await UserRepository()
         .edit(txtUser.text, txtEmail.text, txtPassword.text);
-
     if (user != null) {
       setState(() {});
     } else {
@@ -173,7 +173,14 @@ class _UserViewState extends State<UserView> {
 
   void showSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(message),
+      content: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+        const Icon(
+          Icons.error,
+          color: Colors.white,
+        ),
+        const SizedBox(width: 10),
+        Flexible(child: Text(message))
+      ]),
       backgroundColor: Colors.red,
     ));
   }

@@ -126,16 +126,24 @@ class _LoginViewState extends State<LoginView> {
 
             if (user != null) {
               ApiRepository.setUserData(user.token, user.id.toString());
-              Navigator.pushNamed(context, '/turn');
+              redirectUser();
             } else {
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text("Usuário ou senha inválidos"),
-                backgroundColor: Colors.red,
-              ));
+              showSnackBar();
             }
           }
         },
       ),
     );
+  }
+
+  void redirectUser() {
+    Navigator.pushNamed(context, '/turn');
+  }
+
+  void showSnackBar() {
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text("Usuário ou senha inválidos"),
+      backgroundColor: Colors.red,
+    ));
   }
 }

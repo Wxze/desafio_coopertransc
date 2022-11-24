@@ -24,9 +24,9 @@ class _TurnViewState extends State<TurnView> {
       future: TurnRepository().getTurnList(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return const Center(
-            child: Text('Não foi possível exibir os dados.'),
-          );
+          Future.delayed(Duration.zero, () {
+            showSnackBar(snapshot.error.toString());
+          });
         } else if (snapshot.hasData) {
           List<Turn>? turnData = snapshot.data;
           return turnData!.isNotEmpty
@@ -48,5 +48,19 @@ class _TurnViewState extends State<TurnView> {
 
   Widget turnListTile(Turn turnData) {
     return TurnListCard(turnData);
+  }
+
+  void showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+        const Icon(
+          Icons.error,
+          color: Colors.white,
+        ),
+        const SizedBox(width: 10),
+        Flexible(child: Text(message))
+      ]),
+      backgroundColor: Colors.red,
+    ));
   }
 }

@@ -28,9 +28,9 @@ class _MyTripViewState extends State<MyTripView> {
             .myTrip(initialDate: initialDate.text, finalDate: finalDate.text),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return const Center(
-              child: Text('Não foi possível exibir os dados.'),
-            );
+            Future.delayed(Duration.zero, () {
+              showSnackBar(snapshot.error.toString());
+            });
           } else if (snapshot.hasData) {
             List<Trip>? tripData = snapshot.data;
             return tripData!.isNotEmpty
@@ -40,7 +40,8 @@ class _MyTripViewState extends State<MyTripView> {
                       return tripListTile(tripData[index]);
                     },
                   )
-                : const DefaultCardMessage(message: 'Nenhuma viagem encontrada');
+                : const DefaultCardMessage(
+                    message: 'Nenhuma viagem encontrada');
           }
 
           return const Center(
@@ -105,13 +106,6 @@ class _MyTripViewState extends State<MyTripView> {
     );
   }
 
-  void resetDateValues() {
-    setState(() {
-      initialDate.text = '';
-      finalDate.text = '';
-    });
-  }
-
   Widget myTripDateField(
       TextEditingController inputDate, String label, bool firstField) {
     return Container(
@@ -174,5 +168,26 @@ class _MyTripViewState extends State<MyTripView> {
         },
       ),
     );
+  }
+
+  void resetDateValues() {
+    setState(() {
+      initialDate.text = '';
+      finalDate.text = '';
+    });
+  }
+
+  void showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+        const Icon(
+          Icons.error,
+          color: Colors.white,
+        ),
+        const SizedBox(width: 10),
+        Flexible(child: Text(message))
+      ]),
+      backgroundColor: Colors.red,
+    ));
   }
 }

@@ -5,54 +5,51 @@ import 'api.dart';
 
 class TripRepository {
   Future<List<Trip>> trip() async {
-    try {
-      String token = await ApiRepository.getToken();
+    String token = await ApiRepository.getToken();
 
-      var resp = await get(Uri.parse('${ApiRepository.BASE}viagens'),
-          headers: <String, String>{
-            'Content-Type': 'application/json;charset=UTF-8',
-            'Authorization': 'Bearer $token'
-          });
+    var resp = await get(Uri.parse('${ApiRepository.BASE}viagens'),
+        headers: <String, String>{
+          'Content-Type': 'application/json;charset=UTF-8',
+          'Authorization': 'Bearer $token'
+        });
 
-      List<Trip> trips = [];
-      if (resp.statusCode == 200) {
-        final data = await json.decode(resp.body.toString());
+    List<Trip> trips = [];
+    if (resp.statusCode == 200) {
+      final data = await json.decode(resp.body.toString());
 
-        for (var item in data) {
-          trips.add(Trip.fromJson(item));
-        }
+      for (var item in data) {
+        trips.add(Trip.fromJson(item));
       }
-      return trips;
-    } catch (erro) {
-      return [];
+    } else {
+      throw Exception("Não foi possivel se conectar com o servidor");
     }
+
+    return trips;
   }
 
   Future<List<Trip>> myTrip({String initialDate = '', String finalDate = ''}) async {
-    try {
-      String token = await ApiRepository.getToken();
-      String id = await ApiRepository.getUserId();
-      Map body = {'data_inicio': initialDate, 'data_fim': finalDate};
+    String token = await ApiRepository.getToken();
+    String id = await ApiRepository.getUserId();
+    Map body = {'data_inicio': initialDate, 'data_fim': finalDate};
 
-      var resp = await post(Uri.parse('${ApiRepository.USER}$id/viagens'),
-          headers: <String, String>{
-            'Content-Type': 'application/json;charset=UTF-8',
-            'Authorization': 'Bearer $token'
-          },
-          body: json.encode(body));
+    var resp = await post(Uri.parse('${ApiRepository.USER}$id/viagens'),
+        headers: <String, String>{
+          'Content-Type': 'application/json;charset=UTF-8',
+          'Authorization': 'Bearer $token'
+        },
+        body: json.encode(body));
 
-      List<Trip> trips = [];
-      if (resp.statusCode == 200) {
-        final data = await json.decode(resp.body.toString());
+    List<Trip> trips = [];
+    if (resp.statusCode == 200) {
+      final data = await json.decode(resp.body.toString());
 
-        for (var item in data) {
-          trips.add(Trip.fromJson(item));
-        }
+      for (var item in data) {
+        trips.add(Trip.fromJson(item));
       }
-
-      return trips;
-    } catch (erro) {
-      return [];
+    } else {
+      throw Exception("Não foi possivel se conectar com o servidor");
     }
+
+    return trips;
   }
 }

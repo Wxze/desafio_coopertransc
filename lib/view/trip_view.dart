@@ -19,9 +19,9 @@ class _TripViewState extends State<TripView> {
       future: TripRepository().trip(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return const Center(
-            child: Text('Não foi possível exibir os dados.'),
-          );
+          Future.delayed(Duration.zero, () {
+            showSnackBar(snapshot.error.toString());
+          });
         } else if (snapshot.hasData) {
           List<Trip>? turnData = snapshot.data;
           return turnData!.isNotEmpty
@@ -31,7 +31,7 @@ class _TripViewState extends State<TripView> {
                     return tripListTile(turnData[index]);
                   },
                 )
-              : const DefaultCardMessage(message: 'Nenhuma viagem encontrada'); 
+              : const DefaultCardMessage(message: 'Nenhuma viagem encontrada');
         }
 
         return const Center(
@@ -43,5 +43,19 @@ class _TripViewState extends State<TripView> {
 
   Widget tripListTile(Trip turnData) {
     return TripListCard(turnData);
+  }
+
+  void showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+        const Icon(
+          Icons.error,
+          color: Colors.white,
+        ),
+        const SizedBox(width: 10),
+        Flexible(child: Text(message))
+      ]),
+      backgroundColor: Colors.red,
+    ));
   }
 }
