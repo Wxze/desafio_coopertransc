@@ -103,7 +103,7 @@ class _HomeViewState extends State<HomeView> {
           )
         ],
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: _screens[_currentIndex],
       ),

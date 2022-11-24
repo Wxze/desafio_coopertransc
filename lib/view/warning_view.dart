@@ -26,6 +26,7 @@ class _WarningViewState extends State<WarningView> {
           List<Warning>? warningData = snapshot.data;
           return warningData!.isNotEmpty
               ? ListView.builder(
+                  shrinkWrap: true,
                   itemCount: warningData.length,
                   itemBuilder: (context, index) {
                     return warningListTile(warningData[index]);

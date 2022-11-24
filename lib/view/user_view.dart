@@ -39,8 +39,8 @@ class _UserViewState extends State<UserView> {
                   userData.nome,
                   style: const TextStyle(
                       color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 25),
+                      fontWeight: FontWeight.w600,
+                      fontSize: 24),
                 ),
                 Text(
                   userData.email,
@@ -60,10 +60,14 @@ class _UserViewState extends State<UserView> {
 
   Widget userDataForm(User userData) {
     return Card(
+      color: const Color(0xFFF1F5F5),
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(0),
+      ),
       margin: EdgeInsets.zero,
       child: SingleChildScrollView(
         child: Container(
-          decoration: const BoxDecoration(color: Colors.white),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 40),
           child: Column(
             children: [

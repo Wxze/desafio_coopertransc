@@ -22,33 +22,33 @@ class _MyTripViewState extends State<MyTripView> {
     return Column(children: [
       filterCard(),
       const SizedBox(height: 12),
-      Expanded(
-          child: FutureBuilder<List<Trip>>(
+      FutureBuilder<List<Trip>>(
         future: TripRepository()
-            .myTrip(initialDate: initialDate.text, finalDate: finalDate.text),
+        .myTrip(initialDate: initialDate.text, finalDate: finalDate.text),
         builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            Future.delayed(Duration.zero, () {
-              showSnackBar(snapshot.error.toString());
-            });
-          } else if (snapshot.hasData) {
-            List<Trip>? tripData = snapshot.data;
-            return tripData!.isNotEmpty
-                ? ListView.builder(
-                    itemCount: tripData.length,
-                    itemBuilder: (context, index) {
-                      return tripListTile(tripData[index]);
-                    },
-                  )
-                : const DefaultCardMessage(
-                    message: 'Nenhuma viagem encontrada');
-          }
+      if (snapshot.hasError) {
+        Future.delayed(Duration.zero, () {
+          showSnackBar(snapshot.error.toString());
+        });
+      } else if (snapshot.hasData) {
+        List<Trip>? tripData = snapshot.data;
+        return tripData!.isNotEmpty
+            ?  ListView.builder(
+                shrinkWrap: true,
+                itemCount: tripData.length,
+                itemBuilder: (context, index) {
+                  return tripListTile(tripData[index]);
+                },
+              )
+            : const DefaultCardMessage(
+                message: 'Nenhuma viagem encontrada');
+      }
 
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
         },
-      ))
+      )
     ]);
   }
 
@@ -59,29 +59,35 @@ class _MyTripViewState extends State<MyTripView> {
   Widget filterCard() {
     return Card(
       elevation: 2,
-      color: Colors.white,
-      child: ExpansionTile(
-        title: const Text('Filtros'),
-        leading: const Icon(Icons.filter_list),
-        childrenPadding:
-            const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-        children: [
-          myTripDateField(initialDate, 'Data de inicio', true),
-          myTripDateField(finalDate, 'Data de fim', false),
-          const SizedBox(
-            height: 15,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              filterButton('Resetar Filtros', const Color(0xFF316762),
-                  () => resetDateValues()),
-              const SizedBox(width: 10),
-              filterButton(
-                  'Pesquisar', const Color(0xFF0d2b28), () => setState(() {})),
-            ],
-          )
-        ],
+      child: ClipPath(
+        clipper: ShapeBorderClipper(
+            shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5),
+        )),
+        child: ExpansionTile(
+          backgroundColor: Colors.white,
+          title: const Text('Filtros'),
+          leading: const Icon(Icons.filter_list),
+          childrenPadding:
+              const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+          children: [
+            myTripDateField(initialDate, 'Data de inicio', true),
+            myTripDateField(finalDate, 'Data de fim', false),
+            const SizedBox(
+              height: 15,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                filterButton('Resetar Filtros', const Color(0xFF316762),
+                    () => resetDateValues()),
+                const SizedBox(width: 10),
+                filterButton('Pesquisar', const Color(0xFF0d2b28),
+                    () => setState(() {})),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

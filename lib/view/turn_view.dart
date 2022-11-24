@@ -30,6 +30,7 @@ class _TurnViewState extends State<TurnView> {
           List<Turn>? turnData = snapshot.data;
           return turnData!.isNotEmpty
               ? ListView.builder(
+                  shrinkWrap: true,
                   itemCount: turnData.length,
                   itemBuilder: (context, index) {
                     return turnListTile(turnData[index]);
